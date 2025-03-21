@@ -21,7 +21,10 @@ const props = defineProps({
     default: '#1983FF',
   },
   radius: {
-    default: ['90%', '100%'], // 内半径和外半径
+    default: ['85%', '95%'], // 内半径和外半径
+  },
+  angelRange: {
+    default: [270, -90], // 起始角度,结束角度
   },
 })
 
@@ -36,8 +39,8 @@ const initChart = () => {
           type: 'pie',
           radius: props.radius,
           center: ['50%', '50%'], // 圆心位置
-          startAngle: 270, // 起始角度
-          endAngle: -90, // 结束角度
+          startAngle: props.angelRange[0],
+          endAngle: props.angelRange[1],
           data: [
             {
               value: props.progress,

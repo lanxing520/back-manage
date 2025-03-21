@@ -43,7 +43,7 @@
         </div>
         <div class="block-three">
           <block-wrapper title="日程安排">
-            <el-calendar v-model="date" />
+            <SpecialCalendar />
           </block-wrapper>
         </div>
       </section>
@@ -52,9 +52,24 @@
           <LineChart :line-data="defaultLineData" />
         </block-wrapper>
 
-        <block-wrapper title="作业完成率">1</block-wrapper>
+        <block-wrapper class="finish-wrapper" title="作业完成率">
+          <div class="homework-finish-rate">
+            <RingProgress
+              :progress="homeworkFinishRate"
+              progress-color="#1882FF"
+              :radius="['70%', '90%']"
+              :angel-range="[90, -270]"
+            />
+            <div class="ring-circle-text">
+              <div class="rate-number">{{ homeworkFinishRate }}%</div>
+              <div>完成率</div>
+            </div>
+          </div>
+        </block-wrapper>
 
-        <block-wrapper title="成绩分布">1</block-wrapper>
+        <block-wrapper title="成绩分布">
+          <BarChart :chart-data="defaultLineData" />
+        </block-wrapper>
       </section>
     </div>
   </common-wrapper>
@@ -64,10 +79,11 @@ import CommonWrapper from '../components/CommonWrapper.vue'
 import BlockWrapper from '../components/BlockWrapper.vue'
 import RingProgress from '@/components/RingProgress.vue'
 import LineChart from '@/components/LineChart.vue'
+import BarChart from '@/components/BarChart.vue'
+import SpecialCalendar from '@/components/SpecialCalendar.vue'
 
 const tabsList = ['首页']
 const activeTab = ref('首页')
-const date = ref(new Date())
 
 const ringColorList = ['#1983FF', '#F39E41', '#5DC06A', '#FB6E60']
 const toDoEvents = ref([
@@ -116,6 +132,7 @@ const defaultLineData = ref([
   { name: '六月', value: 60 },
   { name: '七月', value: 90 },
 ])
+const homeworkFinishRate = ref(65)
 </script>
 <style lang="scss" scoped>
 .content-wrapper {
@@ -181,10 +198,32 @@ const defaultLineData = ref([
   }
 }
 
+.finish-wrapper :deep(.block-content) {
+  display: flex;
+  justify-content: center;
+}
 .content-two {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   margin-top: 1rem;
+  .homework-finish-rate {
+    position: relative;
+    width: 225px;
+    height: 225px;
+    .ring-circle-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.8rem;
+      color: #676e7e;
+      text-align: center;
+
+      .rate-number {
+        font-size: 2rem;
+      }
+    }
+  }
 }
 </style>

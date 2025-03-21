@@ -49,6 +49,7 @@ const initChart = () => {
     grid: {
       top: 20,
       bottom: 30,
+      right: 20,
     },
     colors: ['#1ED6FF'],
     series: [
