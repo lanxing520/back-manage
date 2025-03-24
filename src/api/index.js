@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API,
+  baseURL: import.meta.env.VITE_APP_BASE_API,
   timeout: 30 * 1000,
   headers: {
     'Content-Type': 'application/json', // 默认请求头
@@ -28,7 +28,7 @@ service.interceptors.request.use(
 )
 
 // 响应拦截器
-instance.interceptors.response.use(
+service.interceptors.response.use(
   (response) => {
     // 对响应数据做些什么
     return response.data
@@ -57,22 +57,22 @@ instance.interceptors.response.use(
 
 // 封装 GET 请求
 export const get = (url, params) => {
-  return instance.get(url, { params })
+  return service.get(url, { params })
 }
 
 // 封装 POST 请求
 export const post = (url, data) => {
-  return instance.post(url, data)
+  return service.post(url, data)
 }
 
 // 封装 PUT 请求
 export const put = (url, data) => {
-  return instance.put(url, data)
+  return service.put(url, data)
 }
 
 // 封装 DELETE 请求
 export const del = (url, data) => {
-  return instance.delete(url, data)
+  return service.delete(url, data)
 }
 
-export default instance
+export default service

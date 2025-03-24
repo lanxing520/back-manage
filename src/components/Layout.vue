@@ -7,7 +7,7 @@
         <div class="top-title">虚拟仿真教学共享平台</div>
       </div>
       <el-menu default-active="1" class="el-menu-vertical-demo" @select="handleMenuSelect">
-        <el-menu-item v-for="(item, i) in routerList" :key="i" :index="i">
+        <el-menu-item v-for="(item, i) in routerList" :key="i" :index="i + ''">
           <span>{{ item.name }}</span>
         </el-menu-item>
       </el-menu>
@@ -24,7 +24,6 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { Menu as IconMenu, Document, Setting } from '@element-plus/icons-vue'
 
 const router = useRouter()
 

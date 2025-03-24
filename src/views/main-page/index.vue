@@ -50,7 +50,7 @@
       </span>
     </section>
     <section class="lesson-card-wrapper">
-      <LessonCard v-for="(item, i) in 12" :key="i"></LessonCard>
+      <LessonCard v-for="(item, i) in 12" :key="i" />
     </section>
   </div>
 </template>

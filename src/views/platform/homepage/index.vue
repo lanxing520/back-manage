@@ -1,6 +1,6 @@
 <template>
   <common-wrapper>
-    <div class="tabs-container" type="border-card">
+    <div class="tabs-container">
       <span
         class="tab-item"
         :class="{ active: activeTab === item }"
@@ -44,6 +44,7 @@
         <div class="block-three">
           <block-wrapper title="日程安排">
             <SpecialCalendar />
+            <EventList />
           </block-wrapper>
         </div>
       </section>
@@ -81,6 +82,7 @@ import RingProgress from '@/components/RingProgress.vue'
 import LineChart from '@/components/LineChart.vue'
 import BarChart from '@/components/BarChart.vue'
 import SpecialCalendar from '@/components/SpecialCalendar.vue'
+import EventList from '@/components/EventList.vue'
 
 const tabsList = ['首页']
 const activeTab = ref('首页')
@@ -135,10 +137,6 @@ const defaultLineData = ref([
 const homeworkFinishRate = ref(65)
 </script>
 <style lang="scss" scoped>
-.content-wrapper {
-  transform: translateY(-1rem);
-  padding: 0 1rem;
-}
 .flex-between {
   display: flex;
   justify-content: space-between;
@@ -163,12 +161,17 @@ const homeworkFinishRate = ref(65)
       margin-left: 1rem;
       .ring-progress-item {
         width: 110px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5em;
         position: relative;
         .value-wrapper {
           position: absolute;
           left: 50%;
           top: 50%;
-          transform: translate(-50%, -50%);
+          transform: translate(-50%, -80%);
           .value {
             font-size: 36px;
             font-weight: bold;
@@ -180,10 +183,10 @@ const homeworkFinishRate = ref(65)
         }
         .name-wrapper {
           width: max-content;
-          position: absolute;
-          left: 50%;
-          bottom: -30px;
-          transform: translateX(-50%);
+          // position: absolute;
+          // left: 50%;
+          // bottom: -30px;
+          // transform: translateX(-50%);
         }
       }
     }
@@ -195,6 +198,11 @@ const homeworkFinishRate = ref(65)
     grid-row-start: 1;
     grid-row-end: span 2; /* 跨越 2 行 */
     overflow: auto;
+
+    :deep(.event-list-wrapper) {
+      height: 190px;
+      overflow: auto;
+    }
   }
 }
 

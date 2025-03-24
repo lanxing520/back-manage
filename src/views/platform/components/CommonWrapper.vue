@@ -26,6 +26,7 @@ const props = defineProps({
 </script>
 <style lang="scss" scoped>
 .common-wrapper {
+  position: relative;
   width: 100%;
   height: 100%;
   .top-part {
@@ -64,10 +65,15 @@ const props = defineProps({
   .tab-item {
     font-size: 20px;
     padding: 5px 10px;
+    cursor: pointer;
     &.active {
       color: #1983ff;
       background-color: #ebf0f7;
     }
   }
+}
+:deep(.content-wrapper) {
+  transform: translateY(-1rem);
+  padding: 0 1rem;
 }
 </style>
