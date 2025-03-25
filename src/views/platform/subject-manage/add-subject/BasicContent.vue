@@ -1,60 +1,40 @@
 <template>
-  <common-wrapper title="新建课程">
-    <div class="tabs-container">
-      <span
-        class="tab-item"
-        :class="{ active: activeTab === item }"
-        v-for="(item, i) in tabsList"
-        :key="i"
-        @click="switchTab(item)"
+  <section class="content-wrapper">
+    <div class="block-one">
+      <el-upload
+        class="upload-demo"
+        drag
+        action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
+        multiple
+        accept=".jpg, .png, .gif"
       >
-        {{ item }}
-      </span>
+        <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+        <div class="el-upload__text">拖拽文件到这儿或者 <em>点击上传</em></div>
+        <template #tip>
+          <div class="el-upload__tip">拖拽文件到图片区域上传，支持JPG/PNG/GIF</div>
+        </template>
+      </el-upload>
+      <div class="right-message">
+        <div class="msg-title">课程标题：电机技术虚拟仿真实训</div>
+        <div>总策划：XXX</div>
+        <div>添加链接：请填写课程外部链接地址</div>
+      </div>
+      <div class="button-group">
+        <el-button type="primary" plain>预览课程</el-button>
+        <el-button type="primary" plain>模版设置</el-button>
+        <el-button type="primary" plain>已通过发布审核</el-button>
+      </div>
     </div>
 
-    <section class="content-wrapper">
-      <div class="block-one">
-        <el-upload
-          class="upload-demo"
-          drag
-          action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-          multiple
-          accept=".jpg, .png, .gif"
-        >
-          <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-          <div class="el-upload__text">拖拽文件到这儿或者 <em>点击上传</em></div>
-          <template #tip>
-            <div class="el-upload__tip">拖拽文件到图片区域上传，支持JPG/PNG/GIF</div>
-          </template>
-        </el-upload>
-        <div class="right-message">
-          <div class="msg-title">课程标题：电机技术虚拟仿真实训</div>
-          <div>总策划：XXX</div>
-          <div>添加链接：请填写课程外部链接地址</div>
-        </div>
-        <div class="button-group">
-          <el-button type="primary" plain>预览课程</el-button>
-          <el-button type="primary" plain>模版设置</el-button>
-          <el-button type="primary" plain>已通过发布审核</el-button>
-        </div>
-      </div>
-
-      <div class="block-two">
-        <h2>基本内容</h2>
-        <CustomForm :form-data="formData" :form-fields="dataFields" />
-      </div>
-    </section>
-  </common-wrapper>
+    <div class="block-two">
+      <div class="block-two-title">基本内容</div>
+      <div class="line"></div>
+      <CustomForm :form-data="formData" :form-fields="dataFields" />
+    </div>
+  </section>
 </template>
 <script setup>
-import CommonWrapper from '../../components/CommonWrapper.vue'
 import CustomForm from '@/components/CustomForm.vue'
-const tabsList = ['填写基本内容', '添加教学团队', '填写在线教程', '填写线下教程', '设置课程推广']
-const activeTab = ref('填写基本内容')
-
-const switchTab = (item) => {
-  activeTab.value = item
-}
 
 const dataFields = [
   { label: '所属学校', type: 'input', prop: 'school', placeholder: '请输入学校名' },
@@ -98,7 +78,7 @@ const formData = reactive({
 })
 </script>
 <style lang="scss" scoped>
-.content {
+.content-wrapper {
   width: 100%;
   .block-one {
     position: relative;
@@ -144,13 +124,35 @@ const formData = reactive({
   }
 
   .block-two {
+    position: relative;
     background: #fff;
     margin-top: 1em;
+    width: 100%;
+    .block-two-title {
+      font-size: 24px;
+      line-height: 30px;
+      border-bottom: 1px solid #aeaeae;
+      margin: 0.5em 1em;
+      padding: 0.3em 0;
+    }
+    .line {
+      position: absolute;
+      width: calc(100% - 2em);
+      font-size: 24px;
+      top: 195px;
+      left: 1em;
+      // margin: 0.5em 1em;
+      border-bottom: 1px solid #aeaeae;
+    }
+
     :deep(.el-form) {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       margin: 0 3em;
-
+      .el-form-item:nth-child(3),
+      .el-form-item:nth-child(4) {
+        margin-bottom: 40px;
+      }
       .el-form-item__label {
         font-size: 20px;
         height: 50px;

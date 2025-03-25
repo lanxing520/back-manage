@@ -57,12 +57,12 @@
     </el-dialog>
   </div>
 
-  <BasicContent v-else />
+  <AddSubject v-else />
 </template>
 <script setup>
 import CommonWrapper from '../components/CommonWrapper.vue'
 import LessonCard from '@/components/LessonCard.vue'
-import BasicContent from './add-subject/BasicContent.vue'
+import AddSubject from './add-subject/index.vue'
 
 // import { getSubjectList } from '@/api/subject/index'
 const images = [
