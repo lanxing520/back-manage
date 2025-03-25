@@ -74,7 +74,7 @@ const tabsList = ['全部课程', '我教的课']
 const newSubjectList = ['进阶式课程', '微课程', 'VR课程']
 const activeTab = ref('全部课程')
 const showAddDialog = ref(false)
-const addPage = ref(false)
+const addPage = ref(true)
 const selectedSubject = ref(null)
 
 const list = ref([])

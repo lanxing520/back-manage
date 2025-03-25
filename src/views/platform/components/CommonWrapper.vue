@@ -55,6 +55,7 @@ const props = defineProps({
   }
   .content {
     height: calc(100vh - 100px);
+    // overflow: auto;
     background: #ebf0f7;
   }
 }

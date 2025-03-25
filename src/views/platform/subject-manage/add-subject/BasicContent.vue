@@ -27,14 +27,19 @@
     </div>
 
     <div class="block-two">
-      <div class="block-two-title">基本内容</div>
+      <div class="block-title">基本内容</div>
       <div class="line"></div>
       <CustomForm :form-data="formData" :form-fields="dataFields" />
+    </div>
+    <div class="block-three">
+      <div class="block-title">详细内容</div>
+      <QuillEditor />
     </div>
   </section>
 </template>
 <script setup>
 import CustomForm from '@/components/CustomForm.vue'
+import QuillEditor from '@/components/SuperEditor.vue'
 
 const dataFields = [
   { label: '所属学校', type: 'input', prop: 'school', placeholder: '请输入学校名' },
@@ -80,6 +85,8 @@ const formData = reactive({
 <style lang="scss" scoped>
 .content-wrapper {
   width: 100%;
+  height: calc(100vh - 130px);
+  overflow: auto;
   .block-one {
     position: relative;
     display: grid;
@@ -122,19 +129,19 @@ const formData = reactive({
       }
     }
   }
-
+  .block-title {
+    font-size: 24px;
+    line-height: 30px;
+    border-bottom: 1px solid #aeaeae;
+    margin: 0.5em 1em;
+    padding: 0.3em 0;
+  }
   .block-two {
     position: relative;
     background: #fff;
     margin-top: 1em;
     width: 100%;
-    .block-two-title {
-      font-size: 24px;
-      line-height: 30px;
-      border-bottom: 1px solid #aeaeae;
-      margin: 0.5em 1em;
-      padding: 0.3em 0;
-    }
+
     .line {
       position: absolute;
       width: calc(100% - 2em);
@@ -174,6 +181,13 @@ const formData = reactive({
         width: 100% !important;
       }
     }
+  }
+  .block-three {
+    position: relative;
+    background: #fff;
+    margin-top: 1em;
+    height: 500px;
+    width: 100%;
   }
 }
 </style>
