@@ -211,16 +211,16 @@ onMounted(() => {
 // 上传前校验 - 图片
 const beforeImageUpload = (file) => {
   const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
-  const isLt2M = file.size / 1024 / 1024 < 2
+  // const isLt2M = file.size / 1024 / 1024 < 2
 
   if (!isImage) {
     ElMessage.error('只能上传 JPG/PNG 格式的图片!')
   }
-  if (!isLt2M) {
-    ElMessage.error('图片大小不能超过 2MB!')
-  }
+  // if (!isLt2M) {
+  //   ElMessage.error('图片大小不能超过 2MB!')
+  // }
 
-  return isImage && isLt2M
+  return isImage
 }
 
 // 上传成功 - 图片
@@ -238,16 +238,16 @@ const handleImageSuccess = (response, file) => {
 // 上传前校验 - 视频
 const beforeVideoUpload = (file) => {
   const isVideo = file.type === 'video/mp4' || file.type === 'video/webm'
-  const isLt10M = file.size / 1024 / 1024 < 100
+  // const isLt10M = file.size / 1024 / 1024 < 100
 
   if (!isVideo) {
     ElMessage.error('只能上传 MP4/WEBM 格式的视频!')
   }
-  if (!isLt10M) {
-    ElMessage.error('视频大小不能超过 10MB!')
-  }
+  // if (!isLt10M) {
+  //   ElMessage.error('视频大小不能超过 10MB!')
+  // }
 
-  return isVideo && isLt10M
+  return isVideo
 }
 
 // 上传成功 - 视频
@@ -268,13 +268,13 @@ const handleVideoSuccess = (response, file) => {
 
 // 上传前校验 - 音频
 const beforeAudioUpload = (file) => {
-  const isLt5M = file.size / 1024 / 1024 < 500
+  // const isLt5M = file.size / 1024 / 1024 < 500
 
-  if (!isLt5M) {
-    ElMessage.error('音频大小不能超过 500MB!')
-  }
+  // if (!isLt5M) {
+  //   ElMessage.error('音频大小不能超过 500MB!')
+  // }
 
-  return isAudio && isLt5M
+  return true
 }
 
 // 上传成功 - 音频

@@ -1,0 +1,32 @@
+.content-wrapper {
+  width: 100%;
+  height: calc(100vh - 130px);
+  overflow: auto;
+
+  @mixin block {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    padding: 10px 15px;
+  }
+
+  .block-title {
+    font-size: 24px;
+    line-height: 30px;
+    border-bottom: 1px solid #aeaeae;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+  }
+  .block-one {
+    @include block;
+  }
+
+  .block-two {
+    @include block;
+    margin-top: 1em;
+  }
+  .block-three {
+    @include block;
+    margin-top: 1em;
+  }
+}

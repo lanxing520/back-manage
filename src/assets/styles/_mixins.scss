@@ -7,13 +7,13 @@
 }
 
 // 完全居中
-@mixin center {
+.flex-center {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-@mixin column-center {
+.flex-column-center {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -42,7 +42,7 @@
 }
 
 // 单行文本截断
-@mixin text-truncate {
+.text-truncate {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;

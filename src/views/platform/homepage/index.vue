@@ -78,10 +78,10 @@
 <script setup>
 import CommonWrapper from '../components/CommonWrapper.vue'
 import BlockWrapper from '../components/BlockWrapper.vue'
-import RingProgress from '@/components/RingProgress.vue'
-import LineChart from '@/components/LineChart.vue'
-import BarChart from '@/components/BarChart.vue'
-import SpecialCalendar from '@/components/SpecialCalendar.vue'
+import RingProgress from '@/components/chart/RingProgress.vue'
+import LineChart from '@/components/chart/LineChart.vue'
+import BarChart from '@/components/chart/BarChart.vue'
+import SpecialCalendar from '@/components/element-plus/SpecialCalendar.vue'
 import EventList from '@/components/EventList.vue'
 
 const tabsList = ['首页']

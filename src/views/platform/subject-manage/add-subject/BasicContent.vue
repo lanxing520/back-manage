@@ -38,8 +38,8 @@
   </section>
 </template>
 <script setup>
-import CustomForm from '@/components/CustomForm.vue'
-import QuillEditor from '@/components/SuperEditor.vue'
+import CustomForm from '@/components/element-plus/CustomForm.vue'
+import QuillEditor from '@/components/others/SuperEditor.vue'
 
 const dataFields = [
   { label: '所属学校', type: 'input', prop: 'school', placeholder: '请输入学校名' },
@@ -186,8 +186,11 @@ const formData = reactive({
     position: relative;
     background: #fff;
     margin-top: 1em;
-    height: 500px;
+    height: 640px;
     width: 100%;
+    .rich-text-editor {
+      margin: 0 20px;
+    }
   }
 }
 </style>
