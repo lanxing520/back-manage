@@ -4,9 +4,9 @@
       <div class="block-title">
         见面课程
 
-        <span class="right-button"
-          ><el-icon><CirclePlusFilled /></el-icon>
-          <span>添加线下课程</span>
+        <span class="right-button">
+          <el-button>删除</el-button>
+          <el-button> +添加线下课程</el-button>
         </span>
       </div>
 
@@ -14,8 +14,9 @@
         :form-data="formData"
         :form-fields="formFields"
         :rules="rules"
-        :show-reset="true"
+        :show-reset="false"
         :show-submit="true"
+        submit-text="确定"
       />
     </div>
   </section>
@@ -63,7 +64,7 @@ const formFields = ref([
     label: '教学要求:',
     prop: 'requirements',
     type: 'textarea',
-    rows: 6,
+    rows: 15,
     placeholder: '请输入教学要求',
   },
 ])
@@ -88,16 +89,23 @@ const rules = {
       position: absolute;
       display: flex;
       align-items: center;
+      gap: 1em;
       right: 1em;
       bottom: 1em;
       cursor: pointer;
+      .el-button {
+        border-radius: 15px;
+      }
     }
   }
 
   :deep(.el-form) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-
+    margin-top: 1em;
+    .el-form-item {
+      margin-bottom: 50px;
+    }
     .el-form-item:nth-child(7),
     .el-form-item:nth-child(8) {
       grid-column: span 2; /* 跨越2列 */

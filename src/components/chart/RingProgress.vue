@@ -11,7 +11,7 @@ let myChart = null
 
 // 定义 props
 const props = defineProps({
-  progress: {
+  data: {
     type: Number,
     default: 0,
     validator: (value) => value >= 0 && value <= 100,
@@ -43,14 +43,14 @@ const initChart = () => {
           endAngle: props.angelRange[1],
           data: [
             {
-              value: props.progress,
+              value: props.data,
               name: '进度',
               itemStyle: {
                 color: props.progressColor, // 进度条颜色
               },
             },
             {
-              value: 100 - props.progress,
+              value: 100 - props.data,
               name: '剩余',
               itemStyle: {
                 color: '#E6E6E6', // 背景颜色
@@ -70,13 +70,13 @@ const initChart = () => {
 
 // 监听 progress 变化
 watch(
-  () => props.progress,
+  () => props.data,
   () => {
     if (myChart) {
       myChart.setOption({
         series: [
           {
-            data: [{ value: props.progress }, { value: 100 - props.progress }],
+            data: [{ value: props.data }, { value: 100 - props.data }],
           },
         ],
       })

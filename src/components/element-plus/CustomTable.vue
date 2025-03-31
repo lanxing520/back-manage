@@ -50,7 +50,7 @@
         :key="column.prop"
       >
         <template #default="scope">
-          <slot :name="`column-${column.prop}`" :row="scope.row">
+          <slot :name="column.prop" :row="scope.row">
             {{ scope.row[column.prop] }}
           </slot>
         </template>

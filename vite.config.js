@@ -28,6 +28,7 @@ export default defineConfig({
       // 自定义别名
       '@utils': path.resolve(__dirname, './src/utils'),
       '@assets': path.resolve(__dirname, './src/assets'),
+      '@img': path.resolve(__dirname, './src/assets/img'),
     },
   },
 })

@@ -1,7 +1,6 @@
 <template>
   <section class="content-wrapper">
-    <div class="block-one">
-      <div class="block-title">上传视频</div>
+    <block-wrapper title="上传视频" tips="(仅支持XXX格式)">
       <div class="flex-wrapper">
         <div class="video-item">
           <h3 class="item-title">宣传视频</h3>
@@ -16,11 +15,26 @@
           <UploadVideoAndPlay />
         </div>
       </div>
-    </div>
+    </block-wrapper>
+    <!-- <block-wrapper class="m-t" title="主页背景图" tips="(仅支持XXX格式)">
+      <img src="" alt="" />
+    </block-wrapper>
+    <block-wrapper class="m-t" title="加载页背景图" tips="(仅支持XXX格式)">
+      <img src="" alt="" />
+    </block-wrapper> -->
+
+    <block-wrapper class="m-t" title="上传课件" tips="(支持PDF格式文档,XXXM以内)">
+      <Upload :auto-upload="true" trigger-text="本地上传" accept=".pdf" />
+    </block-wrapper>
+    <block-wrapper class="m-t" title="上传申报书" tips="(支持PDF格式文档,XXXM以内)">
+      <Upload :auto-upload="true" trigger-text="本地上传" accept=".pdf" />
+    </block-wrapper>
   </section>
 </template>
 <script setup lang="ts">
 import UploadVideoAndPlay from '@/components/element-plus/UploadVideoAndPlay.vue'
+import BlockWrapper from '../../components/BlockWrapper.vue'
+import Upload from '@/components/element-plus/Upload.vue'
 
 const handleUploadSuccess = (data: { file: File; url: string }) => {
   console.log('上传成功:', data)
@@ -29,16 +43,41 @@ const handleUploadSuccess = (data: { file: File; url: string }) => {
 </script>
 <style lang="scss" scoped>
 @use './common-style.scss';
+.m-t {
+  margin-top: 1em;
+}
 .flex-wrapper {
   display: flex;
   gap: 2em;
   .video-item {
     width: 50%;
     .item-title {
+      position: relative;
       text-align: center;
+      min-width: 400px;
+      &::before {
+        content: '';
+        position: absolute;
+        left: 20%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20%;
+        height: 1px;
+        background-color: #aeaeae;
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        right: 20%;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 20%;
+        height: 1px;
+        background-color: #aeaeae;
+      }
     }
     .video-upload-container {
-      height: 500px;
+      height: 300px;
     }
   }
 }

@@ -1,5 +1,10 @@
 <template>
-  <el-form ref="ruleFormRef" :model="ownFormData" label-width="120px" :rules="props.rules">
+  <el-form
+    ref="ruleFormRef"
+    :model="ownFormData"
+    :label-width="props?.labelWidth ?? '120px'"
+    :rules="props.rules"
+  >
     <el-form-item
       v-for="(field, index) in props.formFields"
       :key="index"
@@ -59,13 +64,15 @@
       >
         <el-button type="primary">点击上传</el-button>
       </el-upload>
+
+      <slot :name="field.prop" v-else-if="field.type === 'custom'" :props="field"></slot>
     </el-form-item>
   </el-form>
   <div class="bottom-button">
-    <el-button v-if="props.showReset" @click="resetForm(ruleFormRef)">重置</el-button>
-    <el-button v-if="props.showSubmit" type="primary" @click="submitForm(ruleFormRef)"
-      >提交</el-button
-    >
+    <el-button v-if="props.showReset" @click="resetForm">重置</el-button>
+    <el-button v-if="props.showSubmit" type="primary" @click="submitForm">{{
+      props.submitText ?? '提交'
+    }}</el-button>
   </div>
 </template>
 
@@ -87,18 +94,20 @@ interface Field {
 const props = defineProps<{
   formFields: Field[]
   formData: Record<string, any>
+  labelWidth?: string
   rules?: FormRules<Record<string, any>>
   showSubmit?: Boolean
+  submitText?: string
   showReset?: Boolean
 }>()
 const ownFormData = ref(cloneDeep(props.formData))
 
 const emit = defineEmits(['submit', 'reset'])
-const ruleFormRef = useTemplateRef('ruleFormRef')
+const ruleFormRef = useTemplateRef<FormInstance>('ruleFormRef')
 
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate((valid, fields) => {
+const submitForm = async () => {
+  if (!ruleFormRef.value) return
+  await ruleFormRef.value.validate((valid, fields) => {
     if (valid) {
       emit('submit', ownFormData)
     } else {
@@ -107,21 +116,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   })
 }
 
-const resetForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
+const resetForm = () => {
+  if (!ruleFormRef.value) return
   ownFormData.value = ref(cloneDeep(props.formData))
 }
 
 // 文件上传超出限制
 function handleExceed(files, fileList) {
-  this.$message.warning(`最多上传 ${fileList.length} 个文件`)
+  ElMessage.warning(`最多上传 ${fileList.length} 个文件`)
 }
 </script>
 
 <style lang="scss" scoped>
-.el-form {
-  /* margin: 0 auto; */
-}
 .bottom-button {
   width: 100%;
   display: flex;

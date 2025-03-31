@@ -6,9 +6,12 @@
 import * as echarts from 'echarts'
 
 const props = defineProps({
-  chartData: {
+  data: {
     type: Array,
     required: true,
+  },
+  barWidth: {
+    type: Number || String,
   },
   colors: {
     type: Array,
@@ -33,7 +36,7 @@ const initChart = () => {
   const option = {
     xAxis: {
       type: 'category',
-      data: props.chartData.map((item) => item.name), // 从 props 获取 x 轴数据
+      data: props.data.map((item) => item.name), // 从 props 获取 x 轴数据
     },
 
     yAxis: {
@@ -49,7 +52,8 @@ const initChart = () => {
       {
         name: '',
         type: 'bar',
-        data: props.chartData.map((item) => item.value), // 从 props 获取 y 轴数据
+        data: props.data.map((item) => item.value), // 从 props 获取 y 轴数据
+        barWidth: props.barWidth,
         itemStyle: {
           color: {
             type: 'linear', // 线性渐变
@@ -73,7 +77,7 @@ const initChart = () => {
 
 // 监听 props 变化，重新渲染图表
 watch(
-  () => props.chartData,
+  () => props.data,
   () => {
     if (myChart) {
       myChart.dispose() // 销毁旧实例

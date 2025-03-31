@@ -7,13 +7,13 @@ import { ref, onMounted, watch } from 'vue'
 import * as echarts from 'echarts'
 
 const props = defineProps({
-  lineData: {
+  data: {
     type: Array,
     required: true,
   },
   backgroundGradient: {
     type: Array,
-    default: () => ['rgba(31, 214, 255, 1)', 'rgba(31, 214, 255, 0.1)'],
+    default: () => ['rgba(255,255,255,0)', 'rgba(255,255,255,0)'],
   },
   lineColor: {
     type: String,
@@ -37,7 +37,7 @@ const initChart = () => {
   const option = {
     xAxis: {
       type: 'category',
-      data: props.lineData.map((e) => e.name), // 生成默认的 X 轴标签
+      data: props.data.map((e) => e.name), // 生成默认的 X 轴标签
       axisTick: {
         alignWithLabel: true,
       },
@@ -54,7 +54,7 @@ const initChart = () => {
     colors: ['#1ED6FF'],
     series: [
       {
-        data: props.lineData.map((e) => e.value),
+        data: props.data.map((e) => e.value),
         type: 'line',
         smooth: props.isSmooth, // 是否平滑
         lineStyle: {
@@ -93,7 +93,7 @@ const initChart = () => {
 
 // 监听 props 变化，更新图表
 watch(
-  () => [props.lineData, props.backgroundGradient, props.lineColor, props.isSmooth],
+  () => [props.data, props.backgroundGradient, props.lineColor, props.isSmooth],
   () => {
     initChart()
   },

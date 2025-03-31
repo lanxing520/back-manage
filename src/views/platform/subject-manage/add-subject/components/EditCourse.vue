@@ -18,7 +18,7 @@
         @dragend="handleDragEnd"
       >
         <div class="chapter-header">
-          <span class="chapter-number">第{{ chapterIndex + 1 }}章</span>
+          <span class="chapter-number">第{{ chapterIndex + 1 }}阶段</span>
 
           <template v-if="chapter.editing">
             <input
@@ -34,7 +34,7 @@
           </template>
 
           <button @click.stop="addSection(chapterIndex)" class="add-btn">+ 小节</button>
-          <button @click.stop="removeChapter(chapterIndex)" class="remove-btn">删除</button>
+          <el-icon @click.stop="removeChapter(chapterIndex)" class="remove-btn"><Delete /></el-icon>
         </div>
 
         <div class="section-list">
@@ -71,10 +71,10 @@
             <template v-else>
               <span class="section-name" @click.stop="startEdit(section)">{{ section.name }}</span>
             </template>
-
-            <button @click.stop="removeSection(chapterIndex, sectionIndex)" class="remove-btn">
-              删除
-            </button>
+            <img src="@assets/img/platform/subject/teacher.png" @click="teacherClick" alt="" />
+            <el-icon @click.stop="removeSection(chapterIndex, sectionIndex)" class="remove-btn"
+              ><Delete
+            /></el-icon>
           </div>
         </div>
       </div>
@@ -111,6 +111,8 @@ const chapters = ref<Chapter[]>([])
 const nextId = ref(1)
 const chapterEditInputs = ref<HTMLInputElement[]>([])
 const sectionEditInputs = ref<HTMLInputElement[]>([])
+
+const teacherClick = () => {}
 
 // 拖拽状态
 const dragState = reactive<DragState>({
@@ -324,9 +326,9 @@ addChapter()
 defineExpose({ addChapter })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .course-manager {
-  max-width: 800px;
+  /* max-width: 800px; */
   margin: 0 auto;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -341,23 +343,31 @@ h2 {
   margin-top: 20px;
 }
 
-.chapter-item,
-.section-item {
+.chapter-item {
+  /*  */
+  line-height: 3em;
+  font-size: 16px;
   margin-bottom: 12px;
-  padding: 12px;
-  border-radius: 6px;
-  background-color: #f8f9fa;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  .chapter-header {
+    padding-left: 5%;
+    padding-right: 2%;
+    border-bottom: 1px dashed #aeaeae;
+    height: 3em;
+  }
+}
+.section-item {
+  /* height: 2em; */
+  line-height: 2em;
+  border-bottom: 1px dashed #aeaeae;
+  font-size: 16px;
+  margin-bottom: 12px;
+  padding-left: 10%;
+  padding-right: 2%;
 }
 
 .chapter-item {
-  border-left: 4px solid #3498db;
-}
-
-.section-item {
-  margin-left: 24px;
-  border-left: 4px solid #2ecc71;
+  /* border-left: 4px solid #3498db; */
 }
 
 .chapter-header,
@@ -371,7 +381,6 @@ h2 {
 .section-number {
   font-weight: bold;
   color: #555;
-  min-width: 50px;
   flex-shrink: 0;
 }
 
@@ -379,7 +388,7 @@ h2 {
 .section-name {
   flex-grow: 1;
   cursor: pointer;
-  padding: 6px 8px;
+  padding: 0 8px;
   transition: background-color 0.2s;
 }
 
@@ -400,11 +409,10 @@ h2 {
 .edit-input:focus {
   outline: none;
   border-color: #3498db;
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  // box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
 
 .add-btn,
-.remove-btn,
 .add-chapter-btn {
   padding: 6px 12px;
   border: none;
@@ -418,22 +426,20 @@ h2 {
 }
 
 .add-btn {
-  background-color: #2ecc71;
-  color: white;
-}
-
-.add-btn:hover {
-  background-color: #27ae60;
+  background-color: transparent;
+  color: #aeaeae;
+  border-radius: 15px;
+  padding: 0 20px;
+  border: 1px solid #aeaeae;
 }
 
 .remove-btn {
-  background-color: #e74c3c;
-  color: white;
+  cursor: pointer;
 }
 
-.remove-btn:hover {
-  background-color: #c0392b;
-}
+// .remove-btn:hover {
+//   background-color: #c0392b;
+// }
 
 .add-chapter-btn {
   margin-top: 20px;

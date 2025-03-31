@@ -133,8 +133,7 @@ const formData = reactive({
     font-size: 24px;
     line-height: 30px;
     border-bottom: 1px solid #aeaeae;
-    margin: 0.5em 1em;
-    padding: 0.3em 0;
+    padding-bottom: 0.3em;
   }
   .block-two {
     position: relative;

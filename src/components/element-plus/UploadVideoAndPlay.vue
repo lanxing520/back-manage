@@ -9,20 +9,19 @@
       :on-change="handleFileChange"
       :before-upload="beforeUpload"
       accept="video/*"
+      drag
     >
-      <el-button type="primary" :icon="Upload" v-if="!videoUrl">选择视频文件</el-button>
-
-      <div v-if="videoUrl" class="video-preview">
+      <div v-if="1 || videoUrl" class="video-preview">
         <video ref="videoPlayer" controls :src="videoUrl" class="video-element"></video>
-        <div class="video-actions">
-          <el-button type="primary" @click="handleReupload">重新上传</el-button>
-          <el-button type="success" @click="handleUpload" :loading="uploading" v-if="!isUploaded">
-            {{ uploading ? '上传中...' : '确认上传' }}
-          </el-button>
-        </div>
       </div>
     </el-upload>
+    <div class="video-actions">
+      <el-button type="primary" :icon="Upload" plain @click="handleReupload">{{
+        !videoUrl ? '本地上传' : '重新上传'
+      }}</el-button>
 
+      <el-button type="danger" plain @click="remove">X移除</el-button>
+    </div>
     <!-- 上传信息 -->
     <div class="upload-info" v-if="currentFile">
       <el-descriptions :column="1" border>
@@ -35,12 +34,12 @@
     </div>
 
     <!-- 上传进度 -->
-    <el-progress
+    <!-- <el-progress
       v-if="uploading"
       :percentage="uploadProgress"
       :status="uploadStatus"
       :stroke-width="12"
-    />
+    /> -->
   </div>
 </template>
 
@@ -83,9 +82,12 @@ const videoPlayer = ref<HTMLVideoElement | null>(null)
 // 初始化（如果有初始视频URL）
 if (props.initialVideoUrl) {
   videoUrl.value = props.initialVideoUrl
+
   isUploaded.value = true
 }
-
+const remove = () => {
+  currentFile.value = null
+}
 // 处理文件选择变化
 const handleFileChange = (file: UploadFile, fileList: UploadFiles) => {
   if (fileList.length > 1) {
@@ -194,43 +196,42 @@ defineExpose({
 })
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .video-upload-container {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
   border-radius: 8px;
   background-color: #fff;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-}
 
-.video-uploader {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.video-preview {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.video-element {
-  width: 100%;
-  max-height: 400px;
-  margin-bottom: 15px;
-  background-color: #000;
-  border-radius: 4px;
+  height: 200px;
+  .video-uploader {
+    /* height: 150px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1em;
+    .video-preview {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .video-element {
+        display: block;
+        height: 250px;
+        width: 100%;
+        max-height: 400px;
+        background-color: #000;
+        // border: 1px dashed #aeaeae;
+        border-radius: 4px;
+      }
+    }
+  }
 }
 
 .video-actions {
   display: flex;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .upload-info {
@@ -239,6 +240,10 @@ defineExpose({
 
 :deep(.el-upload) {
   width: 100%;
+  .el-upload-dragger {
+    padding: 0;
+    height: 250px;
+  }
 }
 
 :deep(.el-descriptions__body) {

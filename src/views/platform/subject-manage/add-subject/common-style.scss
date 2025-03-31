@@ -29,4 +29,9 @@
     @include block;
     margin-top: 1em;
   }
+
+  .other-block {
+    @include block;
+    margin-top: 1em;
+  }
 }

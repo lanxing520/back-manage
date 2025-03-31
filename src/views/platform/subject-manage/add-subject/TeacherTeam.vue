@@ -23,7 +23,30 @@
           </div>
         </template>
       </el-autocomplete>
-
+    </div>
+    <div class="other-block">
+      <div class="block-title">编辑学术策划人员</div>
+      <el-autocomplete
+        v-model="userInfo"
+        :fetch-suggestions="querySearchAsync"
+        placeholder="请输入教师用户名/手机号"
+        class="input-wrapper"
+        @select="handleSelect"
+        :prefix-icon="Search"
+        clearable
+      >
+        <template #default="{ item }">
+          <div class="teacher-item-wrapper">
+            <img class="teacher-picture" :src="item.imgUrl" />
+            <div class="item-right">
+              <div class="right-top">
+                <span class="teacher-name">{{ item.name }}</span> <span>{{ item.degree }}</span>
+              </div>
+              <span>{{ item.detail }}</span>
+            </div>
+          </div>
+        </template>
+      </el-autocomplete>
       <section class="teacher-detail-wrapper">
         <div class="teacher-item-wrapper">
           <img class="teacher-picture" :src="selectTeacher.imgUrl" />
@@ -80,15 +103,16 @@ onMounted(() => {
 })
 </script>
 <style lang="scss" scoped>
-@use './common-style.scss';
 .content-wrapper {
   width: 100%;
   height: calc(100vh - 130px);
   overflow: auto;
   :deep(.input-wrapper) {
-    width: 500px;
+    width: 335px;
   }
-
+  .block-one {
+    height: 300px;
+  }
   .teacher-item-wrapper {
     display: grid;
     grid-template-columns: 80px auto;
@@ -113,6 +137,7 @@ onMounted(() => {
     background-color: #fafafa;
     border-radius: 5px;
     margin-top: 1em;
+    width: 49%;
     .teacher-picture {
     }
     .item-right {

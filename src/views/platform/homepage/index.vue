@@ -12,12 +12,12 @@
     </div>
     <div class="content-wrapper">
       <section class="content-one">
-        <div class="block-one">
-          <block-wrapper title="待办事项">
+        <div class="home-block-one">
+          <home-block-wrapper title="待办事项">
             <div class="ring-progress-group">
               <div class="ring-progress-item" v-for="(item, i) in toDoEvents">
                 <RingProgress
-                  :progress="(item.value / item.total) * 100"
+                  :data="(item.value / item.total) * 100"
                   :progress-color="ringColorList[i]"
                 />
                 <div class="value-wrapper">
@@ -29,31 +29,34 @@
                 </div>
               </div>
             </div>
-          </block-wrapper>
+          </home-block-wrapper>
         </div>
-        <div class="block-two">
-          <block-wrapper title="通知公告">
+        <div class="home-block-two">
+          <home-block-wrapper title="通知公告">
             <ul>
               <li class="flex-between" v-for="(item, i) in noticeAnnouncementList" :key="i">
                 <span>{{ item.value }}</span>
                 <span>{{ item.time }}</span>
               </li>
             </ul>
-          </block-wrapper>
+          </home-block-wrapper>
         </div>
-        <div class="block-three">
-          <block-wrapper title="日程安排">
+        <div class="home-block-three">
+          <home-block-wrapper title="日程安排">
             <SpecialCalendar />
             <EventList />
-          </block-wrapper>
+          </home-block-wrapper>
         </div>
       </section>
       <section class="content-two">
-        <block-wrapper title="学习进度">
-          <LineChart :line-data="defaultLineData" />
-        </block-wrapper>
+        <home-block-wrapper title="学习进度">
+          <LineChart
+            :data="defaultLineData"
+            :background-gradient="['rgba(31, 214, 255, 1)', 'rgba(31, 214, 255, 0.1)']"
+          />
+        </home-block-wrapper>
 
-        <block-wrapper class="finish-wrapper" title="作业完成率">
+        <home-block-wrapper class="finish-wrapper" title="作业完成率">
           <div class="homework-finish-rate">
             <RingProgress
               :progress="homeworkFinishRate"
@@ -66,18 +69,19 @@
               <div>完成率</div>
             </div>
           </div>
-        </block-wrapper>
+        </home-block-wrapper>
 
-        <block-wrapper title="成绩分布">
-          <BarChart :chart-data="defaultLineData" />
-        </block-wrapper>
+        <home-block-wrapper title="成绩分布">
+          <BarChart :data="defaultLineData" />
+        </home-block-wrapper>
       </section>
     </div>
   </common-wrapper>
 </template>
 <script setup>
 import CommonWrapper from '../components/CommonWrapper.vue'
-import BlockWrapper from '../components/BlockWrapper.vue'
+
+import HomeBlockWrapper from '../components/HomeBlockWrapper.vue'
 import RingProgress from '@/components/chart/RingProgress.vue'
 import LineChart from '@/components/chart/LineChart.vue'
 import BarChart from '@/components/chart/BarChart.vue'
@@ -151,7 +155,7 @@ const homeworkFinishRate = ref(65)
   height: 500px;
   gap: 1rem;
   // margin: 1rem;
-  .block-one {
+  .home-block-one {
     // height: 200px;
     .ring-progress-group {
       display: flex;
@@ -191,10 +195,10 @@ const homeworkFinishRate = ref(65)
       }
     }
   }
-  .block-two {
+  .home-block-two {
     grid-row-start: 2;
   }
-  .block-three {
+  .home-block-three {
     grid-row-start: 1;
     grid-row-end: span 2; /* 跨越 2 行 */
     overflow: auto;

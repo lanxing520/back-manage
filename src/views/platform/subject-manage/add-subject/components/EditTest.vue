@@ -39,4 +39,15 @@ const props = defineProps<{
     }
   }
 }
+:deep(.el-slider) {
+  .el-slider__bar {
+    background-color: #aeaeae;
+  }
+  .el-slider__button {
+    border-color: #aeaeae;
+    border-width: 1px;
+    width: 0.5em;
+    height: 0.5em;
+  }
+}
 </style>
