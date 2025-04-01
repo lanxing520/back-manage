@@ -1,5 +1,26 @@
 <template>
-  <div class=""></div>
+  <CommonWrapper
+    class="exam-manage"
+    title="考试管理"
+    :tabs-list="tabsList"
+    :active-tab="activeITem"
+    @click-tab="clickTab"
+  >
+    <ExamManage v-if="activeITem === '考试管理'" />
+    <QuestionStore v-if="activeITem === '题库'" />
+  </CommonWrapper>
 </template>
-<script setup></script>
-<style lang="scss" scoped></style>
+<script setup>
+import CommonWrapper from '../components/CommonWrapper.vue'
+import ExamManage from './exam/ExamManage.vue'
+import QuestionStore from './question-store/index.vue'
+const tabsList = ['考试管理', '题库', '试卷库', '分类管理']
+const activeITem = ref('考试管理')
+const clickTab = (val) => {
+  activeITem.value = val
+}
+</script>
+<style lang="scss" scoped>
+.exam-manage {
+}
+</style>

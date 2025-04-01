@@ -11,6 +11,17 @@
       </div>
     </div>
     <section class="content">
+      <div v-if="tabsList?.length" class="tabs-container">
+        <span
+          class="tab-item"
+          :class="{ active: ownActiveTab === item }"
+          v-for="(item, i) in tabsList"
+          :key="i"
+          @click="switchTab(item)"
+        >
+          {{ item }}
+        </span>
+      </div>
       <slot></slot>
     </section>
   </section>
@@ -18,11 +29,24 @@
 <script setup>
 import { useUserStore } from '@/stores/index.js'
 const store = useUserStore()
+const emit = defineEmits(['click-tab'])
 const props = defineProps({
   title: {
     default: 'XXX',
   },
+  tabsList: {
+    type: Array,
+  },
+  activeTab: {
+    type: String,
+  },
 })
+
+const ownActiveTab = ref(props.activeTab)
+const switchTab = (item) => {
+  ownActiveTab.value = item
+  emit('click-tab', item)
+}
 </script>
 <style lang="scss" scoped>
 .common-wrapper {

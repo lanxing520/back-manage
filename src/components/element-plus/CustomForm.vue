@@ -2,7 +2,7 @@
   <el-form
     ref="ruleFormRef"
     :model="ownFormData"
-    :label-width="props?.labelWidth ?? '120px'"
+    :label-width="props?.labelWidth ?? 'auto'"
     :rules="props.rules"
   >
     <el-form-item
@@ -50,7 +50,7 @@
       <el-date-picker
         v-else-if="field.type === 'datetime' || field.type === 'date'"
         v-model="ownFormData[field.prop]"
-        :format="field?.format ?? 'YYYY-MM-DD'"
+        :format="field?.format ?? 'YYYY-MM-DD HH:mm'"
         :type="field.type"
         :placeholder="field.placeholder || '请选择'"
       ></el-date-picker>
@@ -68,7 +68,7 @@
       <slot :name="field.prop" v-else-if="field.type === 'custom'" :props="field"></slot>
     </el-form-item>
   </el-form>
-  <div class="bottom-button">
+  <div v-if="props.showReset || props.showSubmit" class="bottom-button">
     <el-button v-if="props.showReset" @click="resetForm">重置</el-button>
     <el-button v-if="props.showSubmit" type="primary" @click="submitForm">{{
       props.submitText ?? '提交'

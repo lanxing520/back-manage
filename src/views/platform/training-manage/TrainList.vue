@@ -16,7 +16,7 @@
     </div>
 
     <div class="content">
-      <el-collapse v-model="activeNames" @change="handleChange">
+      <el-collapse v-model="activeTerm" @change="handleChange">
         <el-collapse-item v-for="(item, i) in list" :title="item.title" :name="item.title">
           <CustomTable :data="item.data" :columns="columns">
             <template #analysis>
@@ -62,6 +62,8 @@ const list = ref([
   { title: '第五阶段:直流电动机虚拟仿真实验', data: [{ index: '1.1' }] },
   { title: '第六阶段:直流电动机虚拟仿真实验', data: [{ index: '1.1' }] },
 ])
+
+const handleChange = () => {}
 </script>
 <style lang="scss" scoped>
 .train-list {

@@ -1,5 +1,5 @@
 <template>
-  <div class="rich-text-editor">
+  <div class="quill-editor-container">
     <!-- 编辑器容器 -->
     <div ref="editorContainer"></div>
     <!-- 视频上传对话框 -->
@@ -292,15 +292,15 @@ defineExpose({
 </script>
 
 <style scoped>
-.rich-text-editor {
-  height: 500px;
-  margin-bottom: 20px;
-}
-
-:deep(.ql-editor) {
-  min-height: 300px;
-  font-size: 16px;
-  line-height: 1.6;
+.quill-editor-container {
+  /* min-height: 100px; */
+  height: max-content;
+  /* margin-bottom: 80px; */
+  :deep(.ql-editor) {
+    /* min-height: 50px; */
+    font-size: 16px;
+    line-height: 1.6;
+  }
 }
 
 :deep(.ql-toolbar) {
