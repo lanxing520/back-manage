@@ -35,7 +35,6 @@
   </div>
 </template>
 <script setup>
-import CommonWrapper from '../../components/CommonWrapper.vue'
 import BlockWrapper from '../../components/BlockWrapper.vue'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 import AddPaper from './AddPaper.vue'
