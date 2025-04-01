@@ -28,7 +28,7 @@ import OfflineTutorials from './OfflineTutorials.vue'
 import CoursePromotion from './CoursePromotion.vue'
 
 const tabsList = ['填写基本内容', '添加教学团队', '填写在线教程', '填写线下教程', '设置课程推广']
-const activeTab = ref('设置课程推广')
+const activeTab = ref('填写基本内容')
 const switchTab = (item) => {
   activeTab.value = item
 }

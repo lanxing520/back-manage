@@ -1,6 +1,6 @@
 <template>
   <section class="content-wrapper">
-    <div class="block-one">
+    <!-- <div class="block-one">
       <el-upload
         class="upload-demo"
         drag
@@ -30,7 +30,7 @@
       <div class="block-title">基本内容</div>
       <div class="line"></div>
       <CustomForm :form-data="formData" :form-fields="dataFields" />
-    </div>
+    </div> -->
     <div class="block-three">
       <div class="block-title">详细内容</div>
       <QuillEditor />
@@ -39,7 +39,7 @@
 </template>
 <script setup>
 import CustomForm from '@/components/element-plus/CustomForm.vue'
-import QuillEditor from '@/components/others/SuperEditor.vue'
+import QuillEditor from '@/components/others/editor/QuillEditor.vue'
 
 const dataFields = [
   { label: '所属学校', type: 'input', prop: 'school', placeholder: '请输入学校名' },
@@ -191,5 +191,8 @@ const formData = reactive({
       margin: 0 20px;
     }
   }
+}
+:deep(.ML__keyboard) {
+  display: block !important;
 }
 </style>

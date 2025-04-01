@@ -53,7 +53,7 @@ import { useTemplateRef } from 'vue'
 import EditCourse from './components/EditCourse.vue'
 import CustomTable from '@/components/element-plus/CustomTable.vue'
 import EditTest from './components/EditTest.vue'
-import AVueFlow from '@/components/others/AVueFlow.vue'
+import AVueFlow from '@/components/others/vue-flow/AVueFlow.vue'
 import ChapterInfo from './components/ChapterInfo.vue'
 
 // 表格数据

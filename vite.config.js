@@ -31,4 +31,17 @@ export default defineConfig({
       '@img': path.resolve(__dirname, './src/assets/img'),
     },
   },
+  server: {
+    headers: {
+      // 确保 iframe 可以正常加载
+      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Opener-Policy': 'same-origin',
+    },
+  },
+  build: {
+    // 确保静态资源路径正确
+    assetsDir: 'static',
+    // 如果你需要将第三方静态文件复制到dist目录
+    copyPublicDir: true,
+  },
 })
