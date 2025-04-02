@@ -17,7 +17,7 @@
   </BlockWrapper>
 </template>
 <script setup>
-import CommonWrapper from '../../components/CommonWrapper.vue'
+// import CommonWrapper from '../../components/CommonWrapper.vue'
 import BlockWrapper from '../../components/BlockWrapper.vue'
 import QuillEditor from '@/components/others/editor/QuillEditor.vue'
 
