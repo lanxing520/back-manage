@@ -1,5 +1,5 @@
 <template>
-  <div class="train-list">
+  <div v-if="!showDetail" class="train-list">
     <div class="top">
       <div>学期:</div>
       <el-select v-model="activeTerm" placeholder="请选择" size="large">
@@ -20,7 +20,7 @@
         <el-collapse-item v-for="(item, i) in list" :title="item.title" :name="item.title">
           <CustomTable :data="item.data" :columns="columns">
             <template #analysis>
-              <div>查看详情</div>
+              <div @click="checkDetail">查看详情</div>
               <div>实训成绩</div>
             </template>
           </CustomTable>
@@ -28,13 +28,15 @@
       </el-collapse>
     </div>
   </div>
+  <TrainDetail v-if="showDetail"/>
 </template>
 <script setup>
 import CustomTable from '@/components/element-plus/CustomTable.vue'
-
+import TrainDetail from './TrainDetail.vue'
 const termList = ['第一学期', '第二学期']
 const activeTerm = ref('')
 const dateRange = ref()
+const showDetail = ref(false)
 const columns = [
   { prop: 'index', label: '序号' },
   { prop: 'name', label: '实训名称' },
@@ -64,6 +66,9 @@ const list = ref([
 ])
 
 const handleChange = () => {}
+const checkDetail = ()=>{
+  showDetail.value=true
+}
 </script>
 <style lang="scss" scoped>
 .train-list {
@@ -71,6 +76,7 @@ const handleChange = () => {}
     display: grid;
     grid-template-columns: 3em 47em auto 5em;
     align-items: center;
+    margin-bottom: 1rem;
     .el-select {
       width: 200px;
     }
@@ -79,6 +85,20 @@ const handleChange = () => {}
       .el-range-input {
         width: 7em;
       }
+    }
+  }
+
+  .content {
+    .el-collapse {
+      padding: 0 1rem;
+      background-color: #fff;
+      margin-right: 1rem;
+      height: calc(100vh - 185px);
+      overflow: auto;
+    }
+    :deep(.el-table .el-table__header th) {
+      background: #1983ff;
+      color: #fff;
     }
   }
 }

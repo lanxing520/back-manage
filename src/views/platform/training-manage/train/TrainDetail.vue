@@ -37,7 +37,7 @@
   </div>
 </template>
 <script setup>
-import BlockWrapper from '../components/BlockWrapper.vue'
+import BlockWrapper from '../../components/BlockWrapper.vue'
 import LineChart from '@/components/chart/LineChart.vue'
 import RingProgress from '@/components/chart/RingProgress.vue'
 import BarChart from '@/components/chart/BarChart.vue'
@@ -71,9 +71,10 @@ const averageScore = ref(60)
 <style lang="scss" scoped>
 .train-chart-wrapper {
   display: grid;
-  width: calc(100% - 5em);
+  // width: calc(100% - 5em);
   grid-template-columns: repeat(2, 1fr);
-  margin: 1em;
+  // margin: 1em;
+  margin-right: 1em;
   .common-wrapper {
     width: 40%;
   }

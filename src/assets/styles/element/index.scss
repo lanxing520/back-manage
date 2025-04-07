@@ -1,0 +1,23 @@
+/* 设置根变量 */
+:root {
+  --el-font-size-base: 16px; /* 基础字体大小 */
+}
+
+/* 通过变量影响所有组件 */
+.el-button,
+.el-input,
+.el-select,
+.el-table,
+.el-menu-item,
+.el-tabs__item {
+  font-size: var(--el-font-size-base);
+}
+
+/* 特定组件调整 */
+.el-dialog__title {
+  font-size: calc(var(--el-font-size-base) + 2px);
+}
+
+.el-form-item__label {
+  font-size: calc(var(--el-font-size-base) - 1px);
+}

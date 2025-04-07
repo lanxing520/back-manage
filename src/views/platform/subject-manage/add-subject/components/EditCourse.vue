@@ -33,7 +33,7 @@
             <span class="chapter-name" @click="startEdit(chapter)">{{ chapter.name }}</span>
           </template>
 
-          <button @click.stop="addSection(chapterIndex)" class="add-btn">+ 小节</button>
+          <el-button @click.stop="addSection(chapterIndex)" class="add-btn">+ 小节</el-button>
           <el-icon @click.stop="removeChapter(chapterIndex)" class="remove-btn"><Delete /></el-icon>
         </div>
 
@@ -71,6 +71,9 @@
             <template v-else>
               <span class="section-name" @click.stop="startEdit(section)">{{ section.name }}</span>
             </template>
+            <el-button :icon="Edit" class="edit-button" @click="editSectionItem(section)"
+              >编辑</el-button
+            >
             <img src="@assets/img/platform/subject/teacher.png" @click="teacherClick" alt="" />
             <el-icon @click.stop="removeSection(chapterIndex, sectionIndex)" class="remove-btn"
               ><Delete
@@ -85,6 +88,7 @@
 </template>
 
 <script setup lang="ts">
+import { Delete, Edit } from '@element-plus/icons-vue'
 interface Section {
   id: number
   name: string
@@ -105,7 +109,7 @@ interface DragState {
   parentIndex: number
   data: Chapter | Section | null
 }
-
+const emit = defineEmits(['edit-section'])
 // 数据
 const chapters = ref<Chapter[]>([])
 const nextId = ref(1)
@@ -322,7 +326,9 @@ chapters.value[0].sections.push({
   editing: false,
 })
 addChapter()
-
+const editSectionItem = (section) => {
+  emit('edit-section', section)
+}
 defineExpose({ addChapter })
 </script>
 
@@ -330,7 +336,12 @@ defineExpose({ addChapter })
 .course-manager {
   /* max-width: 800px; */
   margin: 0 auto;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .edit-button {
+    padding: 0 10px;
+    border-radius: 15px;
+    border: 1px solid #aeaeae;
+  }
 }
 
 h2 {
@@ -415,7 +426,7 @@ h2 {
 .add-btn,
 .add-chapter-btn {
   padding: 6px 12px;
-  border: none;
+  // border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
@@ -426,11 +437,11 @@ h2 {
 }
 
 .add-btn {
-  background-color: transparent;
-  color: #aeaeae;
+  // background-color: transparent;
+  // color: #aeaeae;
   border-radius: 15px;
   padding: 0 20px;
-  border: 1px solid #aeaeae;
+  // border: 1px solid #aeaeae;
 }
 
 .remove-btn {

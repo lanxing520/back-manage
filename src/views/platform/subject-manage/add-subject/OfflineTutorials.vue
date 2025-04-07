@@ -64,7 +64,7 @@ const formFields = ref([
     label: '教学要求:',
     prop: 'requirements',
     type: 'textarea',
-    rows: 15,
+    rows: 13,
     placeholder: '请输入教学要求',
   },
 ])
@@ -103,8 +103,9 @@ const rules = {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     margin-top: 1em;
+    gap: 1rem;
     .el-form-item {
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
     .el-form-item:nth-child(7),
     .el-form-item:nth-child(8) {

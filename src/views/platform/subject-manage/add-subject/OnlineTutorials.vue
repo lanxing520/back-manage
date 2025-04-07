@@ -6,11 +6,11 @@
     <div class="block-one">
       <div class="online-block-title block-title">
         <span>在线课程</span>
-        <button @click="addChapter" class="control-button">+章</button>
-        <button class="control-button">指导书</button>
-        <button class="control-button">实训报告</button>
+        <el-button @click="addChapter" class="control-button">+章</el-button>
+        <el-button class="control-button">指导书</el-button>
+        <el-button class="control-button">实训报告</el-button>
       </div>
-      <EditCourse ref="editCourse" />
+      <EditCourse ref="editCourse" @edit-section="openEdit" />
     </div>
 
     <div class="block-two">
@@ -95,6 +95,9 @@ const testList = reactive([
 const editCourseRef = useTemplateRef('editCourse')
 const addChapter = () => {
   editCourseRef.value.addChapter()
+}
+const openEdit = (section) => {
+  dialogVisible.value = true
 }
 </script>
 <style lang="scss">

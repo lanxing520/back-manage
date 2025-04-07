@@ -1,6 +1,6 @@
 <template>
   <section class="content-wrapper">
-    <!-- <div class="block-one">
+    <div class="block-one">
       <el-upload
         class="upload-demo"
         drag
@@ -30,7 +30,7 @@
       <div class="block-title">基本内容</div>
       <div class="line"></div>
       <CustomForm :form-data="formData" :form-fields="dataFields" />
-    </div> -->
+    </div>
     <div class="block-three">
       <div class="block-title">详细内容</div>
       <QuillEditor />

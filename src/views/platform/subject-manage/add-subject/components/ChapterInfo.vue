@@ -5,12 +5,18 @@
       <div class="top-title-wrapper">
         <div class="top-title">章节基本信息</div>
       </div>
-      <el-menu default-active="0" class="el-menu-vertical-demo" @select="handleMenuSelect">
-        <el-menu-item v-for="(item, i) in tabList" :key="i" :index="i + ''">
+      <el-menu default-active="0" class="el-menu-vertical-demo">
+        <el-menu-item v-for="(item, i) in speakerFormFields.slice(0, -1)" :key="i" :index="i + ''">
           <span class="flex-center">
-            <img src="@/assets/img/platform/alert.png" alt="" />
+            <img
+              v-if="hasValue(speakerFormData[item.prop])"
+              class="icon_img"
+              src="@/assets/img/platform/alert.png"
+              alt=""
+            />
+            <el-icon v-else :size="25"><CircleCheckFilled color="#87d068" /></el-icon>
             <span>
-              {{ item.name }}
+              {{ item.label }}
             </span>
           </span>
         </el-menu-item>
@@ -19,11 +25,12 @@
 
     <!-- 右侧内容区域 -->
     <section class="right-wrapper">
-      <div v-if="activeIndex === '0'">
+      <div>
         <custom-form
           :form-data="speakerFormData"
           :form-fields="speakerFormFields"
           label-width="auto"
+          @data-change="onDataChange"
         >
           <template #knowledgePoints="{ props }">
             <div>
@@ -40,7 +47,7 @@
             </div>
           </template>
         </custom-form>
-        <Upload class="upload-wrapper" />
+        <!-- <Upload class="upload-wrapper" /> -->
       </div>
     </section>
   </el-container>
@@ -49,34 +56,49 @@
 <script setup lang="ts">
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 import Upload from '@/components/element-plus/Upload.vue'
-const tabList = [
-  { name: '主讲人' },
-  { name: '小节简介' },
-  { name: '知识点' },
-  { name: '数学指导书' },
-  { name: '实训指导书' },
-  { name: '测试卷' },
-  { name: '实训报告' },
-  { name: '绑定考试' },
-  { name: '上传资料' },
-]
+import { typeUtils } from '@/utils/typeUtils'
 const activeIndex = ref('0')
-const speakerFormData = reactive({
+const speakerFormData = ref({
   speaker: '',
   introduction: '',
   knowledgePoints: [{ value: '', bind: 0 }],
+  teachGuide: [],
+  trainGuide: [],
+  testPaper: [],
+  trainReport: [],
+  bindExam: [],
+  file: [],
 })
 const speakerFormFields = [
   { label: '主讲人:', type: 'input', prop: 'speaker' },
   { label: '小节简介:', type: 'textarea', prop: 'introduction', rows: 5 },
   { label: '知识点:', type: 'custom', prop: 'knowledgePoints' },
-  { label: '教学指导书:', type: 'input', prop: 'speaker' },
+  { label: '教学指导书:', type: 'input', prop: 'teachGuide' },
+  { label: '实训指导书:', type: 'upload', prop: 'trainGuide' },
+  { label: '测试卷:', type: 'upload', prop: 'testPaper' },
+  { label: '实训报告:', type: 'upload', prop: 'trainReport' },
+  { label: '绑定考试:', type: 'upload', prop: 'bindExam' },
+  { label: '上传资料:', type: 'custom', prop: 'file' },
 ]
 // 处理菜单选择
 const handleMenuSelect = (index) => {
   activeIndex.value = index
 }
+const hasValue = (val) => {
+  const type = typeUtils.getType(val)
+  if (type === 'array') {
+    return val.length === 0
+  } else if (type === 'string') {
+    return val === ''
+  } else if (type === 'undefined') {
+    return false
+  }
+  return val
+}
 
+const onDataChange = (data) => {
+  speakerFormData.value = data
+}
 const addKeywords = () => {
   // speakerFormData.knowledgePoints.push({ value: '', bind: 0 })
 }
@@ -87,6 +109,11 @@ const addKeywords = () => {
   display: flex;
   align-items: center;
   gap: 0.5em;
+  .icon_img {
+    width: 21px;
+    height: 21px;
+    margin-right: 7px;
+  }
 }
 .el-container {
   height: 70vh;
@@ -128,6 +155,8 @@ const addKeywords = () => {
   position: relative;
   padding-left: 30px;
   padding-top: 20px;
+  height: 500px;
+  overflow: hidden auto;
 }
 .knowledge-points {
   display: grid;
@@ -149,9 +178,9 @@ const addKeywords = () => {
     }
   }
 }
-.upload-wrapper {
-  position: absolute;
-  left: 50px;
-  bottom: 40px;
-}
+// .upload-wrapper {
+//   position: absolute;
+//   left: 50px;
+//   bottom: 40px;
+// }
 </style>
