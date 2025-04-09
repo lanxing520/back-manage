@@ -7,7 +7,20 @@
         <img src="@assets/img/platform/tips_icon.png" alt="" />
         <img src="@assets/img/platform/user_icon.png" alt="" />
         <span>{{ store.userName }}</span>
-        <img src="@assets/img/platform/arrow_down_icon.png" alt="" />
+        <el-dropdown>
+          <img class="arrow-down-icon" src="@assets/img/platform/arrow_down_icon.png" alt="" />
+
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item
+                v-for="(item, i) in dropdownList"
+                :key="i"
+                @click="onClickDropdown(item)"
+                >{{ item.name }}</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
     </div>
     <section class="content">
@@ -28,6 +41,8 @@
 </template>
 <script setup>
 import { useUserStore } from '@/stores/index.js'
+
+const router = useRouter()
 const store = useUserStore()
 const emit = defineEmits(['click-tab'])
 const props = defineProps({
@@ -46,6 +61,15 @@ const ownActiveTab = ref(props.activeTab)
 const switchTab = (item) => {
   ownActiveTab.value = item
   emit('click-tab', item)
+}
+
+const dropdownList = [{ name: '账号管理' }]
+const onClickDropdown = (item) => {
+  switch (item.name) {
+    case '账号管理':
+      router.push('/account-manage')
+      break
+  }
 }
 </script>
 <style lang="scss" scoped>

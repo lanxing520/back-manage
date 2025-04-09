@@ -2,6 +2,7 @@
 @use './_mixins.scss';
 @use './_variables.scss';
 @use './element/index.scss';
+@use './element/el-dialog.scss';
 
 @media (hover: hover) {
   a:hover {

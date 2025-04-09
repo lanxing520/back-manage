@@ -185,10 +185,13 @@ const formData = reactive({
     position: relative;
     background: #fff;
     margin-top: 1em;
-    height: 640px;
+    min-height: 340px;
     width: 100%;
     .rich-text-editor {
       margin: 0 20px;
+    }
+    :deep(.ql-editor){
+      min-height: 195px;
     }
   }
 }

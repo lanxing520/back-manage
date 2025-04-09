@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
+import { loginRoutes } from './login'
 
 const MainPage = () => import('@/views/main-page/index.vue')
 const PlatformPage = () => import('@/views/platform/index.vue')
@@ -9,14 +10,21 @@ const TrainingManage = () => import('@/views/platform/training-manage/index.vue'
 const ExamManage = () => import('@/views/platform/exam-manage/index.vue')
 const InstructionBook = () => import('@/views/platform/instruction-book/index.vue')
 const CloudDisk = () => import('@/views/platform/cloud-disk/index.vue')
+const AccountManagement = ()=>import('@/views/account-manage/index.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    ...loginRoutes,
     {
       path: '/',
       name: 'main-page',
       component: MainPage,
+    },
+    {
+      path: '/account-manage',
+      name: 'account-manage',
+      component: AccountManagement
     },
     {
       path: '/platform',

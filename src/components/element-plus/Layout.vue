@@ -4,9 +4,10 @@
     <el-aside width="200px">
       <div class="top-title-wrapper">
         <img src="@assets/img/main-page/school_icon.png" alt="" />
+        <div class="back" @click="backToMainPage">返回</div>
         <div class="top-title">虚拟仿真教学共享平台</div>
       </div>
-      <el-menu default-active="1" class="el-menu-vertical-demo" @select="handleMenuSelect">
+      <el-menu default-active="0" class="el-menu-vertical-demo" @select="handleMenuSelect">
         <el-menu-item v-for="(item, i) in routerList" :key="i" :index="i + ''">
           <span>{{ item.name }}</span>
         </el-menu-item>
@@ -39,6 +40,10 @@ const routerList = [
 const handleMenuSelect = (index) => {
   router.push(routerList[index].router)
 }
+
+const backToMainPage = ()=>{
+  router.push('/')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -53,6 +58,9 @@ const handleMenuSelect = (index) => {
   margin: 1rem 0;
   .top-title {
     font-size: 24px;
+  }
+  .back {
+    cursor: pointer;
   }
 }
 

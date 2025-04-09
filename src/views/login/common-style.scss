@@ -1,0 +1,51 @@
+.login-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: no-repeat center url('@img/login/login_bg.jpg');
+  background-size: 100% 100%;
+  .auth-container {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #f5f7fa;
+    .auth-card {
+      width: 400px;
+      padding: 20px;
+      .auth-title {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #409eff;
+      }
+
+      .captcha-container {
+        display: flex;
+        gap: 10px;
+      }
+
+      .captcha-image {
+        width: 120px;
+        height: 40px;
+        cursor: pointer;
+        border: 1px solid #dcdfe6;
+        border-radius: 4px;
+      }
+
+      .sms-container {
+        display: flex;
+        gap: 10px;
+      }
+
+      .submit-btn {
+        width: 100%;
+      }
+
+      .auth-footer {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+      }
+    }
+  }
+}

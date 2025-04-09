@@ -20,7 +20,7 @@ import PaperStore from './paper-store/index.vue'
 import CategoryManage from './category-manage/index.vue'
 
 const tabsList = ['考试管理', '题库', '试卷库', '分类管理']
-const activeITem = ref('试卷库')
+const activeITem = ref('考试管理')
 const clickTab = (val) => {
   activeITem.value = val
 }

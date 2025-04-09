@@ -1,6 +1,6 @@
 <template>
   <div class="content-wrapper">
-    <BlockWrapper title="题库">
+    <BlockWrapper v-if="!showAdd"  title="题库">
       <div class="top-button-group">
         <el-button
           type="primary"
@@ -31,7 +31,7 @@
         </div>
       </div>
     </BlockWrapper>
-    <AddPaper></AddPaper>
+    <AddPaper v-if="showAdd"></AddPaper>
   </div>
 </template>
 <script setup>

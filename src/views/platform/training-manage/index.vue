@@ -39,7 +39,7 @@ const tabsList = [
   '答疑讨论区',
   '评价',
 ]
-const activeTab = ref('评价')
+const activeTab = ref('全部课程')
 const clickTab = (item) => {
   activeTab.value = item
 }

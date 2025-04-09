@@ -1,0 +1,14 @@
+.question-store-dialog {
+  .filter-wrap {
+    display: grid;
+    grid-template-columns: auto 4rem 7rem;
+    gap: 1rem;
+    .el-form {
+      display: flex;
+      gap: 1rem;
+      .el-form-item {
+        flex-grow: 1;
+      }
+    }
+  }
+}
