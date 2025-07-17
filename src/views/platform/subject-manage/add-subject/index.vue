@@ -19,7 +19,7 @@
     <CoursePromotion v-show="activeTab === '设置课程推广'" />
   </common-wrapper>
 </template>
-<script setup>
+<script setup lang="ts">
 import CommonWrapper from '../../components/CommonWrapper.vue'
 import BasicContent from './BasicContent.vue'
 import TeacherTeam from './TeacherTeam.vue'

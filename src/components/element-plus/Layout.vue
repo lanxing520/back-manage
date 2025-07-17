@@ -23,7 +23,7 @@
   </el-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -37,7 +37,7 @@ const routerList = [
   { name: '云盘', router: '/platform/cloud-disk' },
 ]
 // 处理菜单选择
-const handleMenuSelect = (index) => {
+const handleMenuSelect = (index: number) => {
   router.push(routerList[index].router)
 }
 

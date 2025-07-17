@@ -30,7 +30,7 @@
   </div>
   <TrainDetail v-if="showDetail" />
 </template>
-<script setup>
+<script setup lang="ts">
 import CustomTable from '@/components/element-plus/CustomTable.vue'
 import TrainDetail from './TrainDetail.vue'
 const termList = ['第一学期', '第二学期']

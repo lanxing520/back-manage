@@ -10,14 +10,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
 import ComprehensiveAppraise from '@/components/ComprehensiveAppraise.vue'
+import type { Appraise, AddAppraiseParams, AddAppraiseReplyParams, AppraiseReply } from '@/types/appraise'
 
-const total = ref({
+interface AppraiseStats {
+  score: number
+  personNumber: number
+}
+
+const total = ref<AppraiseStats>({
   score: 3.7,
   personNumber: 1,
 })
-const appraises = ref([
+const appraises = ref<Appraise[]>([
   {
     id: '1',
     author: '张三',
@@ -39,21 +46,33 @@ const appraises = ref([
   },
 ])
 
-const handleAddComment = (appraise) => {
+const handleAddComment = (appraise: AddAppraiseParams) => {
   const newComment = {
-    ...appraise,
     id: Date.now().toString(),
+    time: new Date(),
+    goodNumber: 0,
+    replies: [],
+    tips: '刚刚评价'
   }
-  appraises.value.unshift(newComment)
+  // appraises.value.unshift(newComment)
+  
+  // Update total stats
+  const totalScore = appraises.value.reduce((sum, a) => sum + a.score, 0)
+  total.value = {
+    score: parseFloat((totalScore / appraises.value.length).toFixed(1)),
+    personNumber: appraises.value.length,
+  }
 }
 
-const handleAddReply = ({ commentId, reply }) => {
-  const appraise = appraises.value.find((c) => c.id === commentId)
-  if (appraise) {
-    appraise.replies.push({
+const handleAddReply = ({ commentId, reply }: AddAppraiseReplyParams) => {
+  const comment = appraises.value.find((c) => c.id === commentId)
+  if (comment) {
+    const newReply: AppraiseReply = {
       ...reply,
-      id: `${commentId}-${Date.now()}`,
-    })
+      id: `${commentId}-${comment.replies.length + 1}`,
+      time: new Date(),
+    }
+    comment.replies.push(newReply)
   }
 }
 </script>

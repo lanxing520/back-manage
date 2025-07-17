@@ -54,8 +54,9 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
+import { ElMessage } from 'element-plus'
 import AvatarUpload from './AvatarUpload.vue'
 
 const accountInfo = ref({
@@ -68,14 +69,20 @@ const accountInfo = ref({
   lastLoginTime: '2023-06-20 15:20:10',
 })
 
-const teacherInfo = ref({
+const teacherInfo = ref<TeacherInfo>({
   name: '张老师',
   title: '副教授',
   bio: '计算机科学专业，主要研究方向为人工智能与机器学习。',
 })
 
 const isEditing = ref(false)
-const originalTeacherInfo = ref({})
+interface TeacherInfo {
+  name: string
+  title: string
+  bio: string
+}
+
+let originalTeacherInfo: TeacherInfo
 
 const encryptedPhone = computed(() => {
   const phone = accountInfo.value.phone
@@ -91,7 +98,7 @@ const encryptedEmail = computed(() => {
 })
 
 const editTeacherInfo = () => {
-  originalTeacherInfo.value = { ...teacherInfo.value }
+  originalTeacherInfo = { ...teacherInfo.value }
   isEditing.value = true
 }
 
@@ -102,8 +109,12 @@ const saveTeacherInfo = () => {
 }
 
 const cancelEdit = () => {
-  teacherInfo.value = { ...originalTeacherInfo.value }
-  isEditing.value = false
+  if (originalTeacherInfo) {
+    teacherInfo.value = { ...originalTeacherInfo }
+    isEditing.value = false
+  } else {
+    isEditing.value = false
+  }
 }
 </script>
 

@@ -18,7 +18,7 @@
     </div>
   </CommonWrapper>
 </template>
-<script setup>
+<script setup lang="ts">
 import CommonWrapper from '../components/CommonWrapper.vue'
 import TrainList from './train/TrainList.vue'
 import AllCourse from './AllCourse.vue'

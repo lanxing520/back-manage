@@ -24,13 +24,18 @@
     <BlockWrapper title="学习人数"></BlockWrapper>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Edit } from '@element-plus/icons-vue'
 import BlockWrapper from '../components/BlockWrapper.vue'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
-import { Edit } from '@element-plus/icons-vue'
-const formRef = useTemplateRef('formRef')
-const model = ref('readOnly')
-const topData = ref({
+import type { CourseFormData, FormField, FormModel } from '@/types/form'
+import type { FormInstance } from 'element-plus'
+
+const formRef = ref<InstanceType<typeof CustomForm> | null>(null)
+const model = ref<FormModel>('readOnly')
+
+const topData = ref<CourseFormData>({
   title: '电机技术虚拟仿真',
   hours: '48',
   credit: '3',
@@ -41,25 +46,78 @@ const topData = ref({
     '课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介',
 })
 
-const formFields = [
-  { label: '课程标题：', type: 'input', prop: 'title' },
-  { label: '学时：', type: 'input', prop: 'hours' },
-  { label: '学分：', type: 'input', prop: 'credit' },
-  { label: '开课时间：', type: 'input', prop: 'time' },
-  { label: '负责人：', type: 'input', prop: 'person' },
-  { label: '联系电话：', type: 'textarea', prop: 'phone' },
-  { label: '', type: 'textarea', prop: 'intro', rows: 5 },
+const formFields: FormField[] = [
+  { 
+    label: '课程标题：', 
+    type: 'input', 
+    prop: 'title',
+    required: true
+  },
+  { 
+    label: '学时：', 
+    type: 'input', 
+    prop: 'hours',
+    required: true
+  },
+  { 
+    label: '学分：', 
+    type: 'input', 
+    prop: 'credit',
+    required: true
+  },
+  { 
+    label: '开课时间：', 
+    type: 'input', 
+    prop: 'time',
+    required: true
+  },
+  { 
+    label: '负责人：', 
+    type: 'input', 
+    prop: 'person',
+    required: true
+  },
+  { 
+    label: '联系电话：', 
+    type: 'input', 
+    prop: 'phone',
+    required: true
+  },
+  { 
+    label: '课程简介：', 
+    type: 'textarea', 
+    prop: 'intro', 
+    rows: 5,
+    required: true
+  },
 ]
 
-const edit = () => {
+const edit = (): void => {
   model.value = 'edit'
 }
-const cancel = () => {
-  formRef.value.resetForm()
+
+const cancel = (): void => {
+  if (formRef.value) {
+    formRef.value.resetForm()
+  }
   model.value = 'readOnly'
 }
+
 const save = async () => {
-  model.value = 'readOnly'
+  if (!formRef.value) return
+  
+  try {
+    const formEl = formRef.value.$el as HTMLFormElement
+    if (formEl) {
+      const isValid = await formEl.validate()
+      if (isValid) {
+        // Save form data
+        model.value = 'readOnly'
+      }
+    }
+  } catch (error) {
+    console.error('Form validation failed:', error)
+  }
 }
 </script>
 <style lang="scss" scoped>

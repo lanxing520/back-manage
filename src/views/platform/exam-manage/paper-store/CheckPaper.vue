@@ -23,7 +23,7 @@
     </div>
   </BlockWrapper>
 </template>
-<script setup>
+<script setup lang="ts">
 import BlockWrapper from '../../components/BlockWrapper.vue'
 import ExaminationPaper from './ExaminationPaper.vue'
 import { usePrint } from '@/utils/usePrint.js'

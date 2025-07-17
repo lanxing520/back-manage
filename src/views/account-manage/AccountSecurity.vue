@@ -151,34 +151,62 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed, reactive } from 'vue'
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 
-const accountInfo = ref({
+interface AccountInfo {
+  phone: string
+  email: string
+}
+
+const accountInfo = ref<AccountInfo>({
   phone: '13800138000',
   email: 'teacher@mool.edu',
 })
 
 // 手机号相关
+interface PhoneForm {
+  phone: string
+  code: string
+}
+
 const showPhoneDialog = ref(false)
-const phoneForm = reactive({
+const phoneForm = reactive<PhoneForm>({
   phone: '',
   code: '',
 })
 const codeCountdown = ref(0)
+let phoneTimer: number | null = null
 
 // 邮箱相关
+interface EmailForm {
+  email: string
+  code: string
+}
+
 const showEmailDialog = ref(false)
-const emailForm = reactive({
+const emailForm = reactive<EmailForm>({
   email: '',
   code: '',
 })
 const emailCodeCountdown = ref(0)
+let emailTimer: number | null = null
 
 // 密码相关
+interface PasswordForm {
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+  verifyMethod: 'phone' | 'email'
+  phoneCode: string
+  emailCode: string
+}
+
 const showPasswordDialog = ref(false)
-const passwordForm = reactive({
+const passwordFormRef = ref<FormInstance>()
+const passwordForm = reactive<PasswordForm>({
   oldPassword: '',
   newPassword: '',
   confirmPassword: '',
@@ -187,7 +215,15 @@ const passwordForm = reactive({
   emailCode: '',
 })
 
-const passwordRules = {
+const validatePassword = (rule: any, value: string, callback: (error?: Error) => void) => {
+  if (value !== passwordForm.newPassword) {
+    callback(new Error('两次输入密码不一致!'))
+  } else {
+    callback()
+  }
+}
+
+const passwordRules: FormRules = {
   oldPassword: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
   newPassword: [
     { required: true, message: '请输入新密码', trigger: 'blur' },
@@ -195,16 +231,7 @@ const passwordRules = {
   ],
   confirmPassword: [
     { required: true, message: '请再次输入新密码', trigger: 'blur' },
-    {
-      validator: (rule, value, callback) => {
-        if (value !== passwordForm.newPassword) {
-          callback(new Error('两次输入密码不一致!'))
-        } else {
-          callback()
-        }
-      },
-      trigger: 'blur',
-    },
+    { validator: validatePassword, trigger: 'blur' },
   ],
   verifyMethod: [{ required: true, message: '请选择验证方式', trigger: 'change' }],
   phoneCode: [{ required: true, message: '请输入手机验证码', trigger: 'blur' }],
@@ -229,14 +256,22 @@ const sendPhoneCode = () => {
     ElMessage.warning('请输入手机号')
     return
   }
+
+  // 清除之前的定时器
+  if (phoneTimer !== null) {
+    clearInterval(phoneTimer)
+  }
+
   // 模拟发送验证码
   codeCountdown.value = 60
-  const timer = setInterval(() => {
+  phoneTimer = window.setInterval(() => {
     codeCountdown.value--
-    if (codeCountdown.value <= 0) {
-      clearInterval(timer)
+    if (codeCountdown.value <= 0 && phoneTimer !== null) {
+      clearInterval(phoneTimer)
+      phoneTimer = null
     }
   }, 1000)
+
   ElMessage.success('验证码已发送')
 }
 
@@ -245,14 +280,22 @@ const sendEmailCode = () => {
     ElMessage.warning('请输入邮箱')
     return
   }
+
+  // 清除之前的定时器
+  if (emailTimer !== null) {
+    clearInterval(emailTimer)
+  }
+
   // 模拟发送验证码
   emailCodeCountdown.value = 60
-  const timer = setInterval(() => {
+  emailTimer = window.setInterval(() => {
     emailCodeCountdown.value--
-    if (emailCodeCountdown.value <= 0) {
-      clearInterval(timer)
+    if (emailCodeCountdown.value <= 0 && emailTimer !== null) {
+      clearInterval(emailTimer)
+      emailTimer = null
     }
   }, 1000)
+
   ElMessage.success('验证码已发送')
 }
 
@@ -261,12 +304,15 @@ const submitPhoneForm = () => {
     ElMessage.warning('请填写完整信息')
     return
   }
+
   // 模拟API调用
-  accountInfo.value.phone = phoneForm.phone
-  showPhoneDialog.value = false
-  ElMessage.success('手机号绑定成功')
-  phoneForm.phone = ''
-  phoneForm.code = ''
+  setTimeout(() => {
+    accountInfo.value.phone = phoneForm.phone
+    showPhoneDialog.value = false
+    phoneForm.phone = ''
+    phoneForm.code = ''
+    ElMessage.success('手机号更新成功')
+  }, 1000)
 }
 
 const submitEmailForm = () => {
@@ -274,12 +320,15 @@ const submitEmailForm = () => {
     ElMessage.warning('请填写完整信息')
     return
   }
+
   // 模拟API调用
-  accountInfo.value.email = emailForm.email
-  showEmailDialog.value = false
-  ElMessage.success('邮箱绑定成功')
-  emailForm.email = ''
-  emailForm.code = ''
+  setTimeout(() => {
+    accountInfo.value.email = emailForm.email
+    showEmailDialog.value = false
+    emailForm.email = ''
+    emailForm.code = ''
+    ElMessage.success('邮箱更新成功')
+  }, 1000)
 }
 
 const sendPasswordPhoneCode = () => {
@@ -300,17 +349,29 @@ const sendPasswordEmailCode = () => {
   ElMessage.success('验证码已发送到您的邮箱')
 }
 
-const submitPasswordForm = () => {
-  // 这里应该验证表单并调用API
-  showPasswordDialog.value = false
-  ElMessage.success('密码修改成功')
-  // 重置表单
-  passwordForm.oldPassword = ''
-  passwordForm.newPassword = ''
-  passwordForm.confirmPassword = ''
-  passwordForm.verifyMethod = 'phone'
-  passwordForm.phoneCode = ''
-  passwordForm.emailCode = ''
+const submitPasswordForm = async () => {
+  if (!passwordFormRef.value) return
+  
+  const valid = await passwordFormRef.value.validate()
+  if (!valid) return
+
+  if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+    ElMessage.warning('两次输入的密码不一致')
+    return
+  }
+
+  // 模拟API调用
+  setTimeout(() => {
+    showPasswordDialog.value = false
+    // 清空表单
+    passwordForm.oldPassword = ''
+    passwordForm.newPassword = ''
+    passwordForm.confirmPassword = ''
+    passwordForm.phoneCode = ''
+    passwordForm.emailCode = ''
+    
+    ElMessage.success('密码修改成功')
+  }, 1000)
 }
 </script>
 

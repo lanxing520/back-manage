@@ -24,28 +24,9 @@
     </div>
   </el-card>
 </template>
-<script setup>
-const props = defineProps({
-  pictureUrl: {
-    type: String,
-  },
-
-  lessonName: {
-    type: String,
-    default: '课程名',
-  },
-  status: {
-    default: '',
-  },
-  school: {
-    type: String,
-    default: '川北医学院',
-  },
-  teacher: {
-    type: String,
-    default: '教师名',
-  },
-})
+<script setup lang="ts">
+import { LessonData } from '@/interface'
+const props = defineProps<LessonData>()
 </script>
 <style lang="scss" scoped>
 .card {

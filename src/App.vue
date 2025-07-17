@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { RouterView } from 'vue-router'
 // import index form './index.vue'
 import MainPage from '@/views/main-page/index.vue'

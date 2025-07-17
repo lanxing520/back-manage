@@ -33,11 +33,12 @@
     </el-config-provider>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 // const date = ref(new Date())
 const hasSubjectDateList = ['2025-03-05', '2025-03-10']
 const calendar = ref()
-const selectDate = (val) => {
+const selectDate = (val: string) => {
   if (!calendar.value) return
   calendar.value.selectDate(val)
 }

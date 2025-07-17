@@ -104,21 +104,31 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
 import { CopyDocument } from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
 
+interface Course {
+  id: number
+  name: string
+  category: string
+  students: number
+  description: string
+  cover: string
+}
+
 const homepageUrl = ref('https://mool.edu/teacher/T20230001')
 
-const mainCourse = ref(null)
-const featuredCourses = ref([])
+const mainCourse = ref<Course | null>(null)
+const featuredCourses = ref<Course[]>([])
 const featuredCoursesEnabled = ref(true)
 const reviewsEnabled = ref(true)
 
 const showCourseDialog = ref(false)
 const showFeaturedDialog = ref(false)
 
-const availableCourses = ref([
+const availableCourses = ref<Course[]>([
   {
     id: 1,
     name: '人工智能基础',
@@ -158,7 +168,7 @@ const copyUrl = () => {
   ElMessage.success('已复制到剪贴板')
 }
 
-const selectMainCourse = (course) => {
+const selectMainCourse = (course: Course) => {
   mainCourse.value = course
   showCourseDialog.value = false
   ElMessage.success('已设置主讲课程')
@@ -169,7 +179,7 @@ const removeMainCourse = () => {
   ElMessage.success('已移除主讲课程')
 }
 
-const addFeaturedCourse = (course) => {
+const addFeaturedCourse = (course: Course) => {
   if (featuredCourses.value.some((c) => c.id === course.id)) {
     ElMessage.warning('该课程已在精选列表中')
     return
@@ -179,7 +189,7 @@ const addFeaturedCourse = (course) => {
   ElMessage.success('已添加精选课程')
 }
 
-const removeFeaturedCourse = (id) => {
+const removeFeaturedCourse = (id: number) => {
   featuredCourses.value = featuredCourses.value.filter((c) => c.id !== id)
   ElMessage.success('已移除精选课程')
 }

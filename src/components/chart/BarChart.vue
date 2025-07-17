@@ -2,35 +2,30 @@
   <div ref="chart" class="bar-chart"></div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import * as echarts from 'echarts'
+import { EChartsType } from 'echarts'
 
-const props = defineProps({
-  data: {
-    type: Array,
-    required: true,
-  },
-  barWidth: {
-    type: Number || String,
-  },
-  colors: {
-    type: Array,
-    default: () => [
-      { offset: 0, color: '#36EBCA' },
-      { offset: 1, color: '#1882FF' },
-    ],
-  },
+const props = withDefaults(defineProps<{
+  data: Array<{ name: string; value: number }>
+  barWidth?: number | string
+  colors?: Array<{ offset: number; color: string }>
+}>(), {
+  colors: () => [
+    { offset: 0, color: '#36EBCA' },
+    { offset: 1, color: '#1882FF' },
+  ]
 })
-
+ 
 const chart = ref(null) // 用于绑定 DOM 元素
-let myChart = null // ECharts 实例
+let myChart = ref<EChartsType | null>(null) // ECharts 实例
 
 // 初始化图表
 const initChart = () => {
   if (!chart.value) return
 
   // 初始化 ECharts 实例
-  myChart = echarts.init(chart.value)
+  myChart.value = echarts.init(chart.value)
 
   // 配置项
   const option = {
@@ -72,15 +67,15 @@ const initChart = () => {
   }
 
   // 设置配置项并渲染图表
-  myChart.setOption(option)
+  myChart.value?.setOption(option)
 }
 
 // 监听 props 变化，重新渲染图表
 watch(
   () => props.data,
   () => {
-    if (myChart) {
-      myChart.dispose() // 销毁旧实例
+    if (myChart.value) {
+      myChart.value.dispose() // 销毁旧实例
       initChart() // 重新初始化
     }
   },

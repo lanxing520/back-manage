@@ -48,7 +48,7 @@
     </div>
   </el-dialog>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import EditCourse from './components/EditCourse.vue'
 import CustomTable from '@/components/element-plus/CustomTable.vue'
@@ -73,7 +73,9 @@ const operationColumn = ref({
       label: '查看',
       type: 'primary',
       size: 'small',
-      onClick: (row) => handleView(row),
+      onClick: (row) =>{
+
+      } 
     },
   ],
 })
@@ -94,6 +96,7 @@ const testList = reactive([
 ])
 const editCourseRef = useTemplateRef('editCourse')
 const addChapter = () => {
+  if (!editCourseRef.value) return
   editCourseRef.value.addChapter()
 }
 const openEdit = (section) => {

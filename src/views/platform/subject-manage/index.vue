@@ -16,15 +16,7 @@
         >+新建课程</el-button
       >
       <div class="subject-container">
-        <LessonCard
-          v-for="(item, i) in list"
-          :key="i"
-          :lesson-name="item.lessonName"
-          :picture-url="item.pictureUrl"
-          :school="item.school"
-          :status="item.status"
-          :teacher="item.teacher"
-        />
+        <LessonCard v-for="(item, i) in list" v-bind="item" :key="i" @click="clickCard(item)" />
       </div>
     </common-wrapper>
     <el-dialog
@@ -59,7 +51,7 @@
 
   <AddSubject v-else />
 </template>
-<script setup>
+<script setup lang="ts">
 import CommonWrapper from '../components/CommonWrapper.vue'
 import LessonCard from '@/components/LessonCard.vue'
 import AddSubject from './add-subject/index.vue'
@@ -94,42 +86,21 @@ const totalSubjectList = [
 ]
 const mySubjectList = [
   {
-    pictureUrl: '',
-    lessonName: '课程名',
-    status: '已发布',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
+    id: '1',
     lessonName: '课程名',
     status: '未发布',
     school: '川北医学院',
     teacher: '教师名',
   },
   {
-    pictureUrl: '',
-    lessonName: '课程名',
-    status: '已发布',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
+    id: '2',
     lessonName: '课程名',
     status: '未发布',
     school: '川北医学院',
     teacher: '教师名',
   },
   {
-    pictureUrl: '',
-    lessonName: '课程名',
-    status: '已发布',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
+    id: '3',
     lessonName: '课程名',
     status: '未发布',
     school: '川北医学院',
@@ -154,6 +125,9 @@ const onChooseSubject = (item) => {
 }
 const onConfirmAdd = () => {
   addPage.value = true
+}
+const clickCard = (item) => {
+  console.log(item)
 }
 </script>
 <style lang="scss" scoped>

@@ -21,7 +21,7 @@
     </div>
   </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 
 const formData = ref({

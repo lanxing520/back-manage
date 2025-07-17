@@ -44,7 +44,7 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import BlockWrapper from '../components/BlockWrapper.vue'
 import LittleInfo from '@/components/LittleInfo.vue'
 import LineChart from '@/components/chart/LineChart.vue'

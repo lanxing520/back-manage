@@ -2,29 +2,27 @@
   <div ref="chart" class="doughnut-chart"></div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import * as echarts from 'echarts'
+import { EChartsType } from 'echarts'
 
-const props = defineProps({
-  data: {
-    type: Array,
-    required: true,
-  },
-  colors: {
-    type: Array,
-    default: () => ['rgba(31, 214, 255, 1)', 'rgba(31, 214, 255, 0.1)'],
-  },
+
+const props = withDefaults(defineProps<{
+  data: Array<{ name: string; value: number }>
+  colors?: string[]
+}>(), {
+  colors: () => ['rgba(31, 214, 255, 1)', 'rgba(31, 214, 255, 0.1)']
 })
 const chart = ref(null) // 用于引用 DOM 元素
-let myChart = null // 用于存储 ECharts 实例
+let myChart = ref<EChartsType | null>(null) // 用于存储 ECharts 实例
 
 // 初始化图表
 const initChart = () => {
-  if (myChart) {
-    myChart.dispose() // 销毁之前的实例
+  if (myChart.value) {
+    myChart.value.dispose() // 销毁之前的实例
   }
-  myChart = echarts.init(chart.value)
+  myChart.value = echarts.init(chart.value)
 
   const option = {
     tooltip: {
@@ -57,7 +55,7 @@ const initChart = () => {
       },
     ],
   }
-  myChart.setOption(option)
+  myChart.value?.setOption(option)
 }
 
 // 监听 props 变化，更新图表
@@ -76,8 +74,8 @@ onMounted(() => {
 
 // 组件卸载时销毁图表
 onUnmounted(() => {
-  if (myChart) {
-    myChart.dispose()
+  if (myChart.value) {
+    myChart.value.dispose()
   }
 })
 </script>

@@ -4,15 +4,17 @@
       >+新建课程</el-button
     >
     <div class="subject-container">
-      <LessonCard
-        v-for="(item, i) in list"
-        :key="i"
-        :lesson-name="item.lessonName"
-        :picture-url="item.pictureUrl"
-        :school="item.school"
-        :status="item.status"
-        :teacher="item.teacher"
-      />
+      <LessonCard 
+  v-for="(item, i) in list" 
+  :key="item.id" 
+  :id="item.id"
+  :lesson-name="item.lessonName"
+  :status="item.status"
+  :school="item.school"
+  :teacher="item.teacher"
+  :picture-url="item.pictureUrl"
+  @click="clickCard(item)" 
+/>
     </div>
   </div>
   <el-dialog
@@ -54,159 +56,128 @@
     </template>
   </el-dialog>
 </template>
-<script setup>
+<script setup lang="ts">
+import { ref, reactive, onMounted } from 'vue'
 import LessonCard from '@/components/LessonCard.vue'
+import type { FormField } from '@/types/form-field'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 // import { getSubjectList } from '@/api/subject/index'
+
 const images = [
   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
 ]
 
-const labInfo = ref({
-  name: '带电作业实训室',
-  id: '16',
-  appointmentTimeList: [
-    '2025-04-02周三08:00~17:30',
-    '2025-04-02周三08:00~17:30',
-    '2025-04-02周三08:00~17:30',
-    '2025-04-02周三08:00~17:30',
-    '2025-04-02周三08:00~17:30',
-    '2025-04-02周三08:00~17:30',
-  ],
+interface LabInfo {
+  id: string
+  name: string
+  appointmentTimeList: string[]
+}
+
+interface FormData {
+  name: string
+  description: string
+  lab: string
+}
+
+const labInfo = reactive<LabInfo>({
+  id: '123',
+  name: '实验室1',
+  appointmentTimeList: ['2023-01-01 09:00-12:00', '2023-01-01 14:00-17:00']
 })
-const data = ref({
-  theme: '',
-  type: '',
-  theme: '',
-  speaker: '',
-  assist: '',
-  lab: '',
-  requirement: '',
+
+const data = reactive<FormData>({
+  name: '',
+  description: '',
+  lab: ''
 })
-const formFields = [
-  { label: '课程主题:', type: 'input', prop: 'theme', placeholder: '请输入课程主题' },
-  { label: '任务类型:', type: 'input', prop: 'type', placeholder: '请输入任务类型' },
-  { label: '主讲人:', type: 'input', prop: 'speaker', placeholder: '请输入主讲人' },
-  { label: '助教:', type: 'input', prop: 'assist', placeholder: '请输入助教' },
-  { label: '实验室:', type: 'custom', prop: 'lab' },
+
+const formFields: FormField[] = [
   {
-    label: '教学要求:',
-    type: 'textarea',
-    prop: 'requirement',
-    placeholder: '请输入教学要求',
-    rows: 5,
+    label: '课程名称',
+    type: 'input',
+    prop: 'name',
+    placeholder: '请输入课程名称'
   },
+  {
+    label: '课程描述',
+    type: 'textarea',
+    prop: 'description',
+    placeholder: '请输入课程描述',
+    rows: 4
+  },
+  {
+    label: '选择实验室',
+    type: 'custom',
+    prop: 'lab',
+    slotName: 'lab'
+  }
 ]
 
 const showAddDialog = ref(false)
 const addPage = ref(true)
 const selectedSubject = ref(null)
 
-const list = ref([])
-const totalSubjectList = [
+interface CourseItem {
+  id: string
+  name: string
+  description: string
+  status: string
+  school: string
+  teacher: string
+  pictureUrl?: string
+  lessonName: string
+  onClick?: () => void
+}
+
+const list = ref<CourseItem[]>([])
+const totalSubjectList: CourseItem[] = [
   {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '已发布',
+    id: '1',
+    name: '课程1',
+    lessonName: '课程1',
+    description: '课程描述1',
+    status: '进行中',
+    school: '学校1',
+    teacher: '教师1',
   },
   {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
+    id: '2',
+    name: '课程2',
+    lessonName: '课程2',
+    description: '课程描述2',
+    status: '已结束',
+    school: '学校2',
+    teacher: '教师2',
+  },
+  {
+    id: '3',
+    name: '课程3',
+    lessonName: '课程3',
+    description: '课程描述3',
     status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-    status: '未发布',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
-    school: '川北医学院',
-    teacher: '教师名',
-  },
-  {
-    pictureUrl: '',
-    lessonName: '课程名',
     school: '川北医学院',
     teacher: '教师名',
   },
 ]
+
+const clickCard = (item: CourseItem) => {
+  console.log('Selected course:', item)
+}
 
 onMounted(async () => {
   // const list = await getSubjectList()
   list.value = totalSubjectList
 })
 
-const onConfirmAdd = () => {
-  addPage.value = true
+const onConfirmAdd = async () => {
+  try {
+    // Add your form submission logic here
+    showAddDialog.value = false
+  } catch (error) {
+    console.error('Failed to add course:', error)
+  }
 }
 </script>
 <style lang="scss" scoped>

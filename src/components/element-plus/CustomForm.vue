@@ -12,7 +12,7 @@
       :label="field.label"
       :prop="field.prop"
     >
-      <template v-if="props?.model === 'readOnly'">{{ ownFormData[field.prop] }}</template>
+      <template v-if="props.model === 'readOnly'">{{ ownFormData[field.prop] }}</template>
       <template v-else>
         <!-- Input 框 -->
         <el-input
@@ -60,15 +60,22 @@
         <!-- 文件上传 -->
         <el-upload
           v-else-if="field.type === 'upload'"
-          v-model:file-list="ownFormData[field.prop]"
-          action="https://jsonplaceholder.typicode.com/posts/"
-          :limit="field?.limit || 1000"
+          action="#"
+          :limit="field.limit || 3"
           :on-exceed="handleExceed"
         >
           <el-button type="primary">点击上传</el-button>
         </el-upload>
 
-        <slot :name="field.prop" v-else-if="field.type === 'custom'" :props="field"></slot>
+        <!-- 数字输入框 -->
+        <el-input-number
+          v-else-if="field.type === 'number'"
+          v-model="ownFormData[field.prop]"
+          :placeholder="field.placeholder || '请输入数字'"
+        />
+
+        <!-- 自定义插槽 -->
+        <slot v-else-if="field.slotName" :name="field.slotName"></slot>
       </template>
     </el-form-item>
   </el-form>
@@ -80,65 +87,69 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { cloneDeep } from 'lodash'
-import type { FormRules, FormInstance } from 'element-plus'
+<script setup lang="ts">
+import { ref, watch, type Ref } from 'vue'
+import { cloneDeep } from 'lodash-es'
+import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import type { FormField } from '@/types/form-field'
 
-interface Field {
-  label: string
-  prop: string
-  type: string
-  placeholder?: string
-  format?: string //'YYYY-MM-DD HH:mm'
-  limit?: number
-  rows?: number
-  options?: { label: string; value: string }[]
-}
-
-const props = defineProps<{
-  formFields: Field[]
+interface Props {
+  formFields: FormField[]
   formData: Record<string, any>
   labelWidth?: string
-  rules?: FormRules<Record<string, any>>
-  showSubmit?: Boolean
+  rules?: FormRules
+  showSubmit?: boolean
   submitText?: string
-  showReset?: Boolean
-  model?: string
-}>()
+  showReset?: boolean
+  model?: 'readOnly' | 'edit' | 'create'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  showSubmit: false,
+  showReset: false,
+  submitText: '提交',
+  labelWidth: 'auto',
+  model: 'edit'
+})
 const ownFormData = ref(cloneDeep(props.formData))
 
-const emit = defineEmits(['submit', 'reset', 'data-change'])
-const ruleFormRef = useTemplateRef<FormInstance>('ruleFormRef')
+const emit = defineEmits<{
+  (e: 'submit', formData: any): void
+  (e: 'reset'): void
+  (e: 'data-change', formData: any): void
+}>()
+const ruleFormRef = ref<FormInstance | null>(null)
 
-const submitForm = async () => {
+const submitForm = async (): Promise<void> => {
   if (!ruleFormRef.value) return
-  await ruleFormRef.value.validate((valid, fields) => {
-    if (valid) {
-      emit('submit', ownFormData)
-    } else {
-      // console.log('error submit!', fields)
+  
+  try {
+    const isValid = await ruleFormRef.value.validate()
+    if (isValid) {
+      emit('submit', ownFormData.value)
     }
-  })
+  } catch (error) {
+    console.error('Form validation failed:', error)
+  }
 }
 
 const resetForm = () => {
   if (!ruleFormRef.value) return
-  console.log(props.formData)
-
   ownFormData.value = cloneDeep(props.formData)
+  emit('reset')
 }
 
 // 文件上传超出限制
-function handleExceed(files, fileList) {
+function handleExceed(files: File[], fileList: File[]) {
   ElMessage.warning(`最多上传 ${fileList.length} 个文件`)
 }
 
 watch(
-  ownFormData.value,
+  () => ownFormData.value,
   (newVal) => {
     emit('data-change', newVal)
   },
-  { deep: true },
+  { deep: true, immediate: true }
 )
 
 defineExpose({ resetForm })

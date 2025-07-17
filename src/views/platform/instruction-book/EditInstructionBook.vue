@@ -44,7 +44,7 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { cloneDeep } from 'lodash'
 
 const mode = ref('edit')

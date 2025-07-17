@@ -27,25 +27,44 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import type { UploadFile, UploadFiles, UploadRawFile, UploadRequestOptions } from 'element-plus'
+
 const imageUrl = ref('')
 
-const beforeUpload = (file) => {
-  const isImage = ['image/jpeg', 'image/png', 'image/gif'].includes(file.type)
-  const isLt2M = file.size / 1024 / 1024 < 2
+const beforeUpload = (rawFile: UploadRawFile) => {
+  const isImage = ['image/jpeg', 'image/png', 'image/gif'].includes(rawFile.type)
+  const isLt2M = rawFile.size / 1024 / 1024 < 2
 
   if (!isImage) {
     ElMessage.error('只能上传 JPG/PNG/GIF 格式的图片!')
+    return false
   }
   if (!isLt2M) {
     ElMessage.error('图片大小不能超过 2MB!')
+    return false
   }
 
   return isImage && isLt2M
 }
 
-const handleSuccess = (response, file) => {
-  imageUrl.value = URL.createObjectURL(file.raw)
+interface UploadResponse {
+  code: number
+  data: {
+    url: string
+  }
+  message: string
+}
+
+const handleSuccess = (response: UploadResponse, uploadFile: UploadFile) => {
+  if (response && response.code === 200) {
+    imageUrl.value = response.data.url
+  } else if (uploadFile.raw) {
+    // Fallback to local URL if API response is not as expected
+    imageUrl.value = URL.createObjectURL(uploadFile.raw as Blob)
+  }
 }
 </script>
 

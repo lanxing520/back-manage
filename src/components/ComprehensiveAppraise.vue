@@ -118,20 +118,7 @@
 </template>
 <script setup lang="ts">
 import defaultAvatar from '@img/platform/avatar_boy.png'
-import { Prop, PropType } from 'vue'
-
-// 定义评论类型
-interface Appraise {
-  id: string
-  author: string
-  score: number
-  avatar?: string
-  text: string
-  goodNumber: number
-  tips: string
-  time: Date | string
-  replies: Reply[]
-}
+import type { Appraise } from '@/types/appraise'
 
 interface Reply extends Omit<Appraise, 'replies'> {}
 
@@ -197,6 +184,9 @@ const addComment = () => {
     text: newComment.value,
     time: new Date(),
     replies: [],
+    score: 0,
+    goodNumber: 0,
+    tips: '',
   }
 
   emit('add-appraise', appraise)
@@ -222,6 +212,9 @@ const submitReply = (commentId: string) => {
 
   const reply: Omit<Reply, 'id'> = {
     author: '当前用户',
+    score: 0,
+    goodNumber: 0,
+    tips: '',
     text: replyText.value,
     time: new Date(),
   }

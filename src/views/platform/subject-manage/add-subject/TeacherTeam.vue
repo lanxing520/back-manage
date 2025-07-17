@@ -62,11 +62,22 @@
     </div>
   </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
 const userInfo = ref('')
-const selectTeacher = ref({})
-const links = ref([])
+interface Teacher {
+  name: string
+  degree: string
+  detail: string
+  imgUrl: string
+}
+const selectTeacher = ref<Teacher>({
+  name: '',
+  degree: '',
+  detail: '',
+  imgUrl: '',
+})
+const links = ref<Teacher[]>([])
 
 const loadAll = () => {
   return [
@@ -74,6 +85,7 @@ const loadAll = () => {
       name: '李某',
       degree: '副教授',
       detail: '主要从事写作**************************************',
+      imgUrl: '',
     },
   ]
 }

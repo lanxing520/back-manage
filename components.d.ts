@@ -86,7 +86,7 @@ declare module 'vue' {
     UploadVideoAndPlay: typeof import('./src/components/element-plus/UploadVideoAndPlay.vue')['default']
     UseVueFlow: typeof import('./src/components/others/UseVueFlow.vue')['default']
   }
-  export interface GlobalDirectives {
+  export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

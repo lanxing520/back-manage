@@ -11,10 +11,14 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   data: {
-    type: Array,
+    type: Array as () => {
+      time: string
+      value: string
+      action: number
+    }[],
     required: true,
     default: () => [
       { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 0 },

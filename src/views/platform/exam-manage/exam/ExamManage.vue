@@ -61,7 +61,7 @@
     <AddExam v-else />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import RingProgress from '@/components/chart/RingProgress.vue'
 import LineChart from '@/components/chart/LineChart.vue'
 import AddExam from './AddExam.vue'

@@ -56,7 +56,7 @@
     </el-card>
   </el-dialog>
 </template>
-<script setup>
+<script setup lang="ts">
 const filter = ref({
   search: '',
   x1: '',

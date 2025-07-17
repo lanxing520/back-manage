@@ -32,7 +32,7 @@
     <CheckPaper v-if="showCheckPaper" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import BlockWrapper from '../../components/BlockWrapper.vue'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 import AddPaper from './AddPaper.vue'

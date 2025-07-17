@@ -52,7 +52,7 @@
     <CustomTable :data="tableData" :columns="tableColumns" :show-selection="true"> </CustomTable>
   </el-dialog>
 </template>
-<script setup>
+<script setup lang="ts">
 import BlockWrapper from '../../components/BlockWrapper.vue'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 import CustomTable from '@/components/element-plus/CustomTable.vue'

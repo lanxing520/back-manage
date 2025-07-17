@@ -36,7 +36,7 @@
     </BlockWrapper>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import BlockWrapper from '../../components/BlockWrapper.vue'
 import LineChart from '@/components/chart/LineChart.vue'
 import RingProgress from '@/components/chart/RingProgress.vue'

@@ -78,7 +78,7 @@
     </div>
   </common-wrapper>
 </template>
-<script setup>
+<script setup lang="ts">
 import CommonWrapper from '../components/CommonWrapper.vue'
 
 import HomeBlockWrapper from '../components/HomeBlockWrapper.vue'

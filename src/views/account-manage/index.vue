@@ -25,7 +25,7 @@
   </el-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import AccountInfo from './AccountInfo.vue'
 import AccountSecurity from './AccountSecurity.vue'
 import HomeSettings from './HomeSettings.vue'

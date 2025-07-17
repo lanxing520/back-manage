@@ -39,7 +39,7 @@
     </section>
   </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useUserStore } from '@/stores/index.js'
 
 const router = useRouter()

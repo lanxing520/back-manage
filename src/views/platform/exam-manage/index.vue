@@ -12,7 +12,7 @@
     <CategoryManage v-if="activeITem === '分类管理'" />
   </CommonWrapper>
 </template>
-<script setup>
+<script setup lang="ts">
 import CommonWrapper from '../components/CommonWrapper.vue'
 import ExamManage from './exam/ExamManage.vue'
 import QuestionStore from './question-store/index.vue'

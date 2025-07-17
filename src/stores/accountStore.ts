@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 
 export const useAccountStore = defineStore('account', () => {
   // 账号信息
@@ -65,17 +64,17 @@ export const useAccountStore = defineStore('account', () => {
     homeSettings.value.mainCourse = course
   }
 
-  const addFeaturedCourse = (course) => {
-    if (!homeSettings.value.featuredCourses.some((c) => c.id === course.id)) {
-      homeSettings.value.featuredCourses.push(course)
-    }
-  }
+  // const addFeaturedCourse = (course) => {
+  //   if (!homeSettings.value.featuredCourses.some((c) => c.id === course.id)) {
+  //     homeSettings.value.featuredCourses.push(course)
+  //   }
+  // }
 
-  const removeFeaturedCourse = (courseId) => {
-    homeSettings.value.featuredCourses = homeSettings.value.featuredCourses.filter(
-      (c) => c.id !== courseId,
-    )
-  }
+  // const removeFeaturedCourse = (courseId) => {
+  //   homeSettings.value.featuredCourses = homeSettings.value.featuredCourses.filter(
+  //     (c) => c.id !== courseId,
+  //   )
+  // }
 
   return {
     accountInfo,
@@ -88,7 +87,7 @@ export const useAccountStore = defineStore('account', () => {
     updateEmail,
     updatePassword,
     setMainCourse,
-    addFeaturedCourse,
-    removeFeaturedCourse,
+    // addFeaturedCourse,
+    // removeFeaturedCourse,
   }
 })

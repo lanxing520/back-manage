@@ -72,7 +72,7 @@
   </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
@@ -134,7 +134,7 @@ const refreshCaptcha = async () => {
     const response = await authStore.getCaptcha()
     captchaImage.value = response.image
     captchaToken.value = response.token
-  } catch (error) {
+  } catch (error: any) {
     ElMessage.error(error.message || '获取验证码失败')
   }
 }
@@ -156,7 +156,7 @@ const sendSmsCode = async () => {
         clearInterval(timer)
       }
     }, 1000)
-  } catch (error) {
+  } catch (error: any) {
     ElMessage.error(error.message || '发送验证码失败')
     refreshCaptcha()
   }
@@ -173,7 +173,7 @@ const handleForgotPassword = async () => {
     })
     ElMessage.success('密码重置成功')
     router.push('/login')
-  } catch (error) {
+  } catch (error: any) {
     ElMessage.error(error.message || '密码重置失败')
     refreshCaptcha()
   } finally {

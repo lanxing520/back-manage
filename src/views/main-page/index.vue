@@ -50,11 +50,11 @@
       </span>
     </section>
     <section class="lesson-card-wrapper">
-      <LessonCard v-for="(item, i) in 12" :key="i" />
+      <LessonCard v-for="(item, i) in lessonList" v-bind="item" :key="i" @click="clickCard(item)" />
     </section>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import LessonCard from '@/components/LessonCard.vue'
 const router = useRouter()
 
@@ -82,6 +82,33 @@ const login = () => {
 
 const clickFilter = (index, item) => {
   choseFilterList[index] = item
+}
+const lessonList = ref([
+  {
+    id: '1',
+    lessonName: '课程名',
+    status: '未发布',
+    school: '川北医学院',
+    teacher: '教师名',
+  },
+  {
+    id: '2',
+    lessonName: '课程名',
+    status: '未发布',
+    school: '川北医学院',
+    teacher: '教师名',
+  },
+  {
+    id: '3',
+    lessonName: '课程名',
+    status: '未发布',
+    school: '川北医学院',
+    teacher: '教师名',
+  },
+
+])
+const clickCard = (item) => {
+  console.log(item)
 }
 </script>
 <style lang="scss" scoped>
