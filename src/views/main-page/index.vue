@@ -189,7 +189,7 @@ const clickFilter = (index, item) => {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    height: calc( 100vh - 400px);
+    height: calc(100vh - 400px);
     overflow: auto;
     // width: 100%;
     padding: 0 15%;

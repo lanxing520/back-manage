@@ -21,10 +21,11 @@
 </template>
 <script setup>
 const props = defineProps({
-  showAnswer:{
-    type:Boolean,default:false
+  showAnswer: {
+    type: Boolean,
+    default: false,
   },
-  showAnswerAnalysis:{type:Boolean,default:false}
+  showAnswerAnalysis: { type: Boolean, default: false },
 })
 const examData = [
   {
@@ -116,8 +117,8 @@ const answer = examData.map((e) => {
 const myAnswer = ref(answer)
 </script>
 <style lang="scss" scoped>
-.green-text{
-  color:#21b08e;
+.green-text {
+  color: #21b08e;
 }
 .exam-paper {
   .question-wrapper {
@@ -128,7 +129,7 @@ const myAnswer = ref(answer)
       border-bottom: 1px solid #aeaeae;
       margin-top: 1rem;
     }
-    .question{
+    .question {
       margin-top: 1rem;
     }
   }

@@ -211,7 +211,7 @@ const exportData = () => {}
   }
   .list-wrapper {
     padding: 0 0.5em;
-  
+
     .out-wrapper {
       position: relative;
       border: 1px solid #aeaeae;

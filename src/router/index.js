@@ -10,7 +10,7 @@ const TrainingManage = () => import('@/views/platform/training-manage/index.vue'
 const ExamManage = () => import('@/views/platform/exam-manage/index.vue')
 const InstructionBook = () => import('@/views/platform/instruction-book/index.vue')
 const CloudDisk = () => import('@/views/platform/cloud-disk/index.vue')
-const AccountManagement = ()=>import('@/views/account-manage/index.vue')
+const AccountManagement = () => import('@/views/account-manage/index.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,7 +24,7 @@ const router = createRouter({
     {
       path: '/account-manage',
       name: 'account-manage',
-      component: AccountManagement
+      component: AccountManagement,
     },
     {
       path: '/platform',

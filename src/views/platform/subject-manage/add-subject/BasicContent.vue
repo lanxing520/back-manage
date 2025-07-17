@@ -190,7 +190,7 @@ const formData = reactive({
     .rich-text-editor {
       margin: 0 20px;
     }
-    :deep(.ql-editor){
+    :deep(.ql-editor) {
       min-height: 195px;
     }
   }

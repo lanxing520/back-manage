@@ -41,7 +41,7 @@ const handleMenuSelect = (index) => {
   router.push(routerList[index].router)
 }
 
-const backToMainPage = ()=>{
+const backToMainPage = () => {
   router.push('/')
 }
 </script>

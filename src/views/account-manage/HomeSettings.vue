@@ -54,9 +54,7 @@
         </div>
         <el-button type="primary" @click="showFeaturedDialog = true">添加精选课程</el-button>
       </div>
-      <div v-else class="disabled-hint">
-        精选课程功能已关闭，不会在个人主页显示
-      </div>
+      <div v-else class="disabled-hint">精选课程功能已关闭，不会在个人主页显示</div>
     </el-card>
 
     <el-card class="box-card">
@@ -69,9 +67,7 @@
       <div v-if="reviewsEnabled">
         <p>学员评价功能已开启，将会在个人主页显示学员对您的评价</p>
       </div>
-      <div v-else class="disabled-hint">
-        学员评价功能已关闭，不会在个人主页显示
-      </div>
+      <div v-else class="disabled-hint">学员评价功能已关闭，不会在个人主页显示</div>
     </el-card>
 
     <!-- 添加主讲课程对话框 -->
@@ -82,7 +78,9 @@
         <el-table-column prop="students" label="学员数" />
         <el-table-column label="操作" width="100">
           <template #default="{ row }">
-            <el-button type="primary" size="small" @click.stop="selectMainCourse(row)">选择</el-button>
+            <el-button type="primary" size="small" @click.stop="selectMainCourse(row)"
+              >选择</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -96,7 +94,9 @@
         <el-table-column prop="students" label="学员数" />
         <el-table-column label="操作" width="100">
           <template #default="{ row }">
-            <el-button type="primary" size="small" @click.stop="addFeaturedCourse(row)">添加</el-button>
+            <el-button type="primary" size="small" @click.stop="addFeaturedCourse(row)"
+              >添加</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -105,19 +105,18 @@
 </template>
 
 <script setup>
+import { CopyDocument } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
-import { CopyDocument } from '@element-plus/icons-vue';
-import { ElMessage } from 'element-plus';
+const homepageUrl = ref('https://mool.edu/teacher/T20230001')
 
-const homepageUrl = ref('https://mool.edu/teacher/T20230001');
+const mainCourse = ref(null)
+const featuredCourses = ref([])
+const featuredCoursesEnabled = ref(true)
+const reviewsEnabled = ref(true)
 
-const mainCourse = ref(null);
-const featuredCourses = ref([]);
-const featuredCoursesEnabled = ref(true);
-const reviewsEnabled = ref(true);
-
-const showCourseDialog = ref(false);
-const showFeaturedDialog = ref(false);
+const showCourseDialog = ref(false)
+const showFeaturedDialog = ref(false)
 
 const availableCourses = ref([
   {
@@ -126,7 +125,7 @@ const availableCourses = ref([
     category: '计算机科学',
     students: 1250,
     description: '入门级人工智能课程，适合零基础学员',
-    cover: 'https://via.placeholder.com/120x80'
+    cover: 'https://via.placeholder.com/120x80',
   },
   {
     id: 2,
@@ -134,7 +133,7 @@ const availableCourses = ref([
     category: '数据科学',
     students: 980,
     description: '通过实际案例学习机器学习算法',
-    cover: 'https://via.placeholder.com/120x80'
+    cover: 'https://via.placeholder.com/120x80',
   },
   {
     id: 3,
@@ -142,7 +141,7 @@ const availableCourses = ref([
     category: '人工智能',
     students: 650,
     description: '深入讲解神经网络和深度学习',
-    cover: 'https://via.placeholder.com/120x80'
+    cover: 'https://via.placeholder.com/120x80',
   },
   {
     id: 4,
@@ -150,40 +149,40 @@ const availableCourses = ref([
     category: '编程语言',
     students: 2100,
     description: '从零开始学习Python编程',
-    cover: 'https://via.placeholder.com/120x80'
-  }
-]);
+    cover: 'https://via.placeholder.com/120x80',
+  },
+])
 
 const copyUrl = () => {
-  navigator.clipboard.writeText(homepageUrl.value);
-  ElMessage.success('已复制到剪贴板');
-};
+  navigator.clipboard.writeText(homepageUrl.value)
+  ElMessage.success('已复制到剪贴板')
+}
 
 const selectMainCourse = (course) => {
-  mainCourse.value = course;
-  showCourseDialog.value = false;
-  ElMessage.success('已设置主讲课程');
-};
+  mainCourse.value = course
+  showCourseDialog.value = false
+  ElMessage.success('已设置主讲课程')
+}
 
 const removeMainCourse = () => {
-  mainCourse.value = null;
-  ElMessage.success('已移除主讲课程');
-};
+  mainCourse.value = null
+  ElMessage.success('已移除主讲课程')
+}
 
 const addFeaturedCourse = (course) => {
-  if (featuredCourses.value.some(c => c.id === course.id)) {
-    ElMessage.warning('该课程已在精选列表中');
-    return;
+  if (featuredCourses.value.some((c) => c.id === course.id)) {
+    ElMessage.warning('该课程已在精选列表中')
+    return
   }
-  featuredCourses.value.push(course);
-  showFeaturedDialog.value = false;
-  ElMessage.success('已添加精选课程');
-};
+  featuredCourses.value.push(course)
+  showFeaturedDialog.value = false
+  ElMessage.success('已添加精选课程')
+}
 
 const removeFeaturedCourse = (id) => {
-  featuredCourses.value = featuredCourses.value.filter(c => c.id !== id);
-  ElMessage.success('已移除精选课程');
-};
+  featuredCourses.value = featuredCourses.value.filter((c) => c.id !== id)
+  ElMessage.success('已移除精选课程')
+}
 </script>
 
 <style scoped>
@@ -192,7 +191,6 @@ const removeFeaturedCourse = (id) => {
   flex-direction: column;
   gap: 1rem;
 }
-
 
 .card-header {
   display: flex;

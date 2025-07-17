@@ -30,7 +30,7 @@ const { data, style } = defineProps<PropType>()
     color: v-bind('style?.numberColor');
     font-size: v-bind('style?.numberFontSize');
   }
-  .unit{
+  .unit {
     color: v-bind('style?.numberColor');
     margin-left: 3px;
   }

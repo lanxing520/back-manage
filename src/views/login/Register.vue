@@ -127,8 +127,8 @@ const form = ref({
   captcha: '',
   smsCode: '',
   nationality: '中国',
-  occupationalType:'',
-  unitType:'',
+  occupationalType: '',
+  unitType: '',
   password: '',
   confirmPassword: '',
 })
@@ -156,9 +156,9 @@ const rules = {
     { required: true, message: '请输入短信验证码', trigger: 'blur' },
     { pattern: /^\d{6}$/, message: '验证码为6位数字', trigger: 'blur' },
   ],
-  nationality:[{ required: true, message: '请选择国籍', trigger: 'blur' },],
-  occupationalType:[{ required: true, message: '请输入职业类型', trigger: 'blur' },],
-  unitType:[{ required: true, message: '请输入单位类型', trigger: 'blur' },],
+  nationality: [{ required: true, message: '请选择国籍', trigger: 'blur' }],
+  occupationalType: [{ required: true, message: '请输入职业类型', trigger: 'blur' }],
+  unitType: [{ required: true, message: '请输入单位类型', trigger: 'blur' }],
   password: [
     { required: true, message: '请输入密码', trigger: 'blur' },
     { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },

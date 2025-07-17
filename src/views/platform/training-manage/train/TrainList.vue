@@ -28,7 +28,7 @@
       </el-collapse>
     </div>
   </div>
-  <TrainDetail v-if="showDetail"/>
+  <TrainDetail v-if="showDetail" />
 </template>
 <script setup>
 import CustomTable from '@/components/element-plus/CustomTable.vue'
@@ -66,8 +66,8 @@ const list = ref([
 ])
 
 const handleChange = () => {}
-const checkDetail = ()=>{
-  showDetail.value=true
+const checkDetail = () => {
+  showDetail.value = true
 }
 </script>
 <style lang="scss" scoped>

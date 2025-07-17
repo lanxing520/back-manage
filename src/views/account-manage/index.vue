@@ -3,7 +3,7 @@
     <!-- 左侧边栏 -->
     <el-aside width="200px">
       <div class="top">
-        <img class="back-icon" src="@img/back_icon.png" alt="">
+        <img class="back-icon" src="@img/back_icon.png" alt="" />
         <div class="back-to-home" @click="backToHome">回到首页</div>
       </div>
 
@@ -42,17 +42,18 @@ const handleMenuSelect = (i) => {
 </script>
 
 <style scoped lang="scss">
-.top{
+.top {
   display: flex;
   padding: 1rem;
   justify-content: center;
-  align-items: center;gap: 5px;
+  align-items: center;
+  gap: 5px;
 
-  .back-icon{
+  .back-icon {
     width: 1rem;
     height: 1rem;
   }
-  .back-to-home{
+  .back-to-home {
     color: #1295da;
     cursor: pointer;
   }

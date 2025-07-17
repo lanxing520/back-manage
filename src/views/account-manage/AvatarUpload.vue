@@ -28,7 +28,6 @@
 </template>
 
 <script setup>
-
 const imageUrl = ref('')
 
 const beforeUpload = (file) => {
@@ -51,50 +50,49 @@ const handleSuccess = (response, file) => {
 </script>
 
 <style scoped lang="scss">
-.avatar-upload{
-display: flex;
-gap: 3rem;
-  .avatar-uploader {
-  .avatar {
-    width: 120px;
-    height: 120px;
-    display: block;
-  }
-  .el-upload {
-    border: 1px dashed var(--el-border-color);
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: var(--el-transition-duration-fast);
-  }
-  .el-upload:hover {
-    border-color: var(--el-color-primary);
-  }
-}
-
-.avatar-preview {
+.avatar-upload {
   display: flex;
-  margin-top: 20px;
-  gap: 20px;
-  .preview-item {
+  gap: 3rem;
+  .avatar-uploader {
+    .avatar {
+      width: 120px;
+      height: 120px;
+      display: block;
+    }
+    .el-upload {
+      border: 1px dashed var(--el-border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: var(--el-transition-duration-fast);
+    }
+    .el-upload:hover {
+      border-color: var(--el-color-primary);
+    }
+  }
+
+  .avatar-preview {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+    margin-top: 20px;
+    gap: 20px;
+    .preview-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  .avatar-large {
-    width: 120px;
-    height: 120px;
-    border-radius: 6px;
-  }
+    .avatar-large {
+      width: 120px;
+      height: 120px;
+      border-radius: 6px;
+    }
 
-  .avatar-small {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+    .avatar-small {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
   }
 }
-}
-
 </style>

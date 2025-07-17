@@ -1,6 +1,6 @@
 <template>
   <div class="paper-store content-wrapper">
-    <BlockWrapper v-if="!showCheckPaper&&!showAddPaper" title="试卷库">
+    <BlockWrapper v-if="!showCheckPaper && !showAddPaper" title="试卷库">
       <template #button>
         <el-button @click="addPaper" type="primary">新增试卷</el-button>
       </template>
@@ -28,7 +28,7 @@
         </div>
       </div>
     </BlockWrapper>
-<AddPaper v-if="showAddPaper"/>
+    <AddPaper v-if="showAddPaper" />
     <CheckPaper v-if="showCheckPaper" />
   </div>
 </template>
@@ -37,7 +37,6 @@ import BlockWrapper from '../../components/BlockWrapper.vue'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 import AddPaper from './AddPaper.vue'
 import CheckPaper from './CheckPaper.vue'
-
 
 const search = ref({ difficulty: '', category: '', search: '' })
 const searchFields = ref([

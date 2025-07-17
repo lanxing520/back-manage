@@ -49,7 +49,7 @@
         <span>作者：{{ announceDetail.publisher }}</span>
         <span>时间： {{ announceDetail.time }}</span>
       </div>
- 
+
       <p>
         {{ announceDetail.content }}
       </p>
@@ -114,10 +114,10 @@ const checkCard = (item) => {
     }
   }
 }
-.align-center{
+.align-center {
   text-align: center;
 }
-.gray{
+.gray {
   display: flex;
   gap: 2rem;
   color: #c5c9db;

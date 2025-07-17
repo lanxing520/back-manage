@@ -9,7 +9,7 @@
     <ExamManage v-if="activeITem === '考试管理'" />
     <QuestionStore v-if="activeITem === '题库'" />
     <PaperStore v-if="activeITem === '试卷库'" />
-    <CategoryManage v-if="activeITem === '分类管理'"/>
+    <CategoryManage v-if="activeITem === '分类管理'" />
   </CommonWrapper>
 </template>
 <script setup>

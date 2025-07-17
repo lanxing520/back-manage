@@ -32,9 +32,9 @@ export default defineConfig({
     },
   },
   server: {
-    host: '0,0,0,0',
-    port: 8081,
-
+    host:'0,0,0,0',
+    port:8081,
+    
     headers: {
       // 确保 iframe 可以正常加载
       'Cross-Origin-Embedder-Policy': 'require-corp',

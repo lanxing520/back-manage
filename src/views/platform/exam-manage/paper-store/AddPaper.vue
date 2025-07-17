@@ -23,9 +23,16 @@
     </BlockWrapper>
   </div>
 
-  <el-dialog class="question-store-dialog" v-model="showChooseQuestion" align-center append-to-body title="题库选题" width="80%">
+  <el-dialog
+    class="question-store-dialog"
+    v-model="showChooseQuestion"
+    align-center
+    append-to-body
+    title="题库选题"
+    width="80%"
+  >
     <div class="filter-wrap">
-      <CustomForm :form-data="searchData" :form-fields="searchFields"  />
+      <CustomForm :form-data="searchData" :form-fields="searchFields" />
       <el-button type="primary">搜索</el-button>
       <el-button type="primary">前往题库</el-button>
     </div>
@@ -199,6 +206,4 @@ const handleSelectionChange = (val) => {}
     white-space: pre-wrap;
   }
 }
-
-
 </style>

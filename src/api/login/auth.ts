@@ -1,4 +1,4 @@
-import {get,post} from '../index'
+import { get, post } from '../index'
 
 const API_URL = '/api/auth'
 
@@ -7,7 +7,7 @@ export const getCaptchaApi = async () => {
   try {
     const response = await get(`${API_URL}/captcha`)
     return response.data
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || '获取验证码失败')
   }
 }
@@ -17,7 +17,7 @@ export const sendSmsApi = async (data) => {
   try {
     const response = await post(`${API_URL}/sms`, data)
     return response.data
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || '发送验证码失败')
   }
 }
@@ -27,7 +27,7 @@ export const loginApi = async (credentials) => {
   try {
     const response = await post(`${API_URL}/login`, credentials)
     return response.data
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || '登录失败')
   }
 }
@@ -37,7 +37,7 @@ export const registerApi = async (userData) => {
   try {
     const response = await post(`${API_URL}/register`, userData)
     return response.data
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || '注册失败')
   }
 }
@@ -47,7 +47,7 @@ export const forgotPasswordApi = async (data) => {
   try {
     const response = await post(`${API_URL}/forgot-password`, data)
     return response.data
-  } catch (error:any) {
+  } catch (error: any) {
     throw new Error(error.response?.data?.message || '重置密码失败')
   }
 }

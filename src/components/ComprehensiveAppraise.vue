@@ -249,10 +249,10 @@ $primary-color: #2c81fe;
   padding: 1rem;
   background-color: #f9f9f9;
   border-radius: 8px;
-  .button{
+  .button {
     cursor: pointer;
-    &:hover{
-      color:$primary-color;
+    &:hover {
+      color: $primary-color;
     }
   }
 
@@ -402,11 +402,10 @@ $primary-color: #2c81fe;
   justify-content: space-between;
   gap: 1rem;
   margin-top: 10px;
-  .right{
+  .right {
     display: flex;
     flex-wrap: nowrap;
     gap: 1rem;
-    
   }
 }
 
