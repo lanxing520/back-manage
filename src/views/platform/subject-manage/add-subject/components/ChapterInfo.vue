@@ -32,11 +32,11 @@
           label-width="auto"
           @data-change="onDataChange"
         >
-          <template #knowledgePoints="{ props }">
+          <template #knowledgePoints="{ data }">
             <div>
               <div
                 class="knowledge-points"
-                v-for="(item, i) in speakerFormData.knowledgePoints"
+                v-for="(item, i) in data.knowledgePoints"
                 :key="i"
               >
                 <el-input v-model="item.value" />
@@ -57,6 +57,7 @@
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 import Upload from '@/components/element-plus/Upload.vue'
 import { typeUtils } from '@/utils/typeUtils'
+import type { FormField } from '@/types/form-field'
 const activeIndex = ref('0')
 const speakerFormData = ref({
   speaker: '',
@@ -79,7 +80,7 @@ const speakerFormFields = [
   { label: '实训报告:', type: 'upload', prop: 'trainReport' },
   { label: '绑定考试:', type: 'upload', prop: 'bindExam' },
   { label: '上传资料:', type: 'custom', prop: 'file' },
-]
+] as FormField[]
 // 处理菜单选择
 const handleMenuSelect = (index) => {
   activeIndex.value = index

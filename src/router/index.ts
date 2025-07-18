@@ -27,6 +27,11 @@ const router = createRouter({
       component: AccountManagement,
     },
     {
+      path:'/editor/:id',
+      name:'editor',
+      component: () => import('@/views/editor/index.vue')
+    },
+    {
       path: '/platform',
       name: 'platform',
       component: PlatformPage,

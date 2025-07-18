@@ -159,38 +159,48 @@ onMounted(() => {
       }
     }
   }
-  VideoBlot.blotName = 'video'
-  VideoBlot.tagName = 'video'
-  Quill.register(VideoBlot)
+  // Only register VideoBlot if not already registered
+  if (!Quill.imports['formats/video']) {
+    VideoBlot.blotName = 'video'
+    VideoBlot.tagName = 'video'
+    Quill.register(VideoBlot)
+  }
 
-  class AudioBlot extends BlockEmbed {
-    static create(value) {
-      const node = super.create()
-      node.setAttribute('src', value.url)
-      node.setAttribute('controls', 'controls')
-      return node
-    }
+  // Only register AudioBlot if not already registered
+  if (!Quill.imports['formats/audio']) {
+    class AudioBlot extends BlockEmbed {
+      static create(value) {
+        const node = super.create()
+        node.setAttribute('src', value.url)
+        node.setAttribute('controls', 'controls')
+        node.setAttribute('style', 'max-width: 100%;')
+        return node
+      }
 
-    static value(node) {
-      return {
-        url: node.getAttribute('src'),
+      static value(node) {
+        return {
+          url: node.getAttribute('src'),
+        }
       }
     }
+    AudioBlot.blotName = 'audio'
+    AudioBlot.tagName = 'audio'
+    Quill.register(AudioBlot)
   }
-  AudioBlot.blotName = 'audio'
-  AudioBlot.tagName = 'audio'
-  Quill.register(AudioBlot)
-  class MathFieldBlot extends BlockEmbed {
-    static blotName = 'math-field'
-    static tagName = 'span'
+  
+  // Only register MathFieldBlot if it's not already registered
+  if (!Quill.imports['formats/math-field']) {
+    class MathFieldBlot extends BlockEmbed {
+      static blotName = 'math-field'
+      static tagName = 'span'
 
-    static create() {
-      let node = super.create()
-      return node
+      static create() {
+        let node = super.create()
+        return node
+      }
     }
+    Quill.register(MathFieldBlot)
   }
-  Quill.register(MathFieldBlot)
-  // Quill.register('mathlive', MathField)
 })
 
 // 上传前校验 - 视频

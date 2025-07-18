@@ -25,7 +25,7 @@
 
         <!-- 单选框 -->
         <el-radio-group v-else-if="field.type === 'radio'" v-model="ownFormData[field.prop]">
-          <el-radio v-for="option in field.options" :key="option.value" :label="option.value">
+          <el-radio v-for="option in field.options" :key="option.value" :value="option.value">
             {{ option.label }}
           </el-radio>
         </el-radio-group>
@@ -75,7 +75,7 @@
         />
 
         <!-- 自定义插槽 -->
-        <slot v-else-if="field.slotName" :name="field.slotName"></slot>
+        <slot v-else-if="field.slotName" :name="field.slotName" :data="ownFormData"></slot>
       </template>
     </el-form-item>
   </el-form>

@@ -50,7 +50,7 @@
       </span>
     </section>
     <section class="lesson-card-wrapper">
-      <LessonCard v-for="(item, i) in lessonList" v-bind="item" :key="i" @click="clickCard(item)" />
+      <LessonCard v-for="(item, i) in lessonList" v-bind="item" :key="i"  />
     </section>
   </div>
 </template>
@@ -107,9 +107,7 @@ const lessonList = ref([
   },
 
 ])
-const clickCard = (item) => {
-  console.log(item)
-}
+
 </script>
 <style lang="scss" scoped>
 .main-page {

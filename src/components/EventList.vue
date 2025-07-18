@@ -20,12 +20,6 @@ const props = defineProps({
       action: number
     }[],
     required: true,
-    default: () => [
-      { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 0 },
-
-      { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 1 },
-      { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 1 },
-    ],
   },
 })
 </script>

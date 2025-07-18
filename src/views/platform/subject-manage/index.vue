@@ -16,7 +16,7 @@
         >+新建课程</el-button
       >
       <div class="subject-container">
-        <LessonCard v-for="(item, i) in list" v-bind="item" :key="i" @click="clickCard(item)" />
+        <LessonCard v-for="(item, i) in list" v-bind="item" :key="i" />
       </div>
     </common-wrapper>
     <el-dialog
@@ -24,6 +24,7 @@
       align-center
       title="新建课程"
       width="500"
+      append-to-body
       @close="selectedSubject = ''"
     >
       <div class="new-subject-wrapper">
@@ -55,31 +56,40 @@
 import CommonWrapper from '../components/CommonWrapper.vue'
 import LessonCard from '@/components/LessonCard.vue'
 import AddSubject from './add-subject/index.vue'
-
+import { LessonData } from '@/interface'
 // import { getSubjectList } from '@/api/subject/index'
-const images = [
-  new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
-  new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
-  new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
-]
+// const images = [
+//   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
+//   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
+//   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
+// ]
 const tabsList = ['全部课程', '我教的课']
 const newSubjectList = ['进阶式课程', '微课程', 'VR课程']
 const activeTab = ref('全部课程')
 const showAddDialog = ref(false)
 const addPage = ref(true)
-const selectedSubject = ref(null)
+const selectedSubject = ref<string | null>(null)
 
-const list = ref([])
+const list = ref<LessonData[]>([])
 const totalSubjectList = [
   {
-    pictureUrl: '',
+    id: '1',
     lessonName: '课程名',
+    status: '未发布',
     school: '川北医学院',
     teacher: '教师名',
   },
   {
-    pictureUrl: '',
+    id: '2',
     lessonName: '课程名',
+    status: '未发布',
+    school: '川北医学院',
+    teacher: '教师名',
+  },
+  {
+    id: '3',
+    lessonName: '课程名',
+    status: '未发布',
     school: '川北医学院',
     teacher: '教师名',
   },

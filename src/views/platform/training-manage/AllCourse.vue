@@ -4,17 +4,7 @@
       >+新建课程</el-button
     >
     <div class="subject-container">
-      <LessonCard 
-  v-for="(item, i) in list" 
-  :key="item.id" 
-  :id="item.id"
-  :lesson-name="item.lessonName"
-  :status="item.status"
-  :school="item.school"
-  :teacher="item.teacher"
-  :picture-url="item.pictureUrl"
-  @click="clickCard(item)" 
-/>
+      <LessonCard v-for="(item, i) in list" v-bind="item" :key="i" />
     </div>
   </div>
   <el-dialog
@@ -22,11 +12,12 @@
     align-center
     title="实验室-新增"
     width="60%"
+    append-to-body
     @close="selectedSubject = ''"
   >
     <div class="new-subject-wrapper">
       <CustomForm :form-data="data" :form-fields="formFields">
-        <template #lab="{ props }">
+        <template #lab="{  }">
           <div>
             <el-button type="primary">点击选择实验室</el-button>
           </div>
@@ -63,11 +54,11 @@ import type { FormField } from '@/types/form-field'
 import CustomForm from '@/components/element-plus/CustomForm.vue'
 // import { getSubjectList } from '@/api/subject/index'
 
-const images = [
-  new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
-  new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
-  new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
-]
+// const images = [
+//   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
+//   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
+//   new URL('@/assets/img/platform/subject/XX.png', import.meta.url).href,
+// ]
 
 interface LabInfo {
   id: string
@@ -117,7 +108,7 @@ const formFields: FormField[] = [
 
 const showAddDialog = ref(false)
 const addPage = ref(true)
-const selectedSubject = ref(null)
+const selectedSubject = ref<null | string>(null)
 
 interface CourseItem {
   id: string
@@ -162,9 +153,6 @@ const totalSubjectList: CourseItem[] = [
   },
 ]
 
-const clickCard = (item: CourseItem) => {
-  console.log('Selected course:', item)
-}
 
 onMounted(async () => {
   // const list = await getSubjectList()

@@ -1,5 +1,5 @@
 <template>
-  <el-card class="card">
+  <el-card class="card" @click="clickCard">
     <div class="card-header">
       <!-- <img :src="props.pictureUrl" alt="" /> -->
     </div>
@@ -25,8 +25,13 @@
   </el-card>
 </template>
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { LessonData } from '@/interface'
 const props = defineProps<LessonData>()
+const router = useRouter()
+const clickCard = () => {
+  router.push(`/editor/${props.id}`)
+}
 </script>
 <style lang="scss" scoped>
 .card {

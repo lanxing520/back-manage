@@ -44,7 +44,7 @@
         <div class="home-block-three">
           <home-block-wrapper title="日程安排">
             <SpecialCalendar />
-            <EventList />
+            <EventList :data="eventListData"/>
           </home-block-wrapper>
         </div>
       </section>
@@ -90,7 +90,12 @@ import EventList from '@/components/EventList.vue'
 
 const tabsList = ['首页']
 const activeTab = ref('首页')
+const eventListData=ref([
+      { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 0 },
 
+      { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 1 },
+      { time: '2025.3.19-10:25', value: 'XXX提交了XXXX课程作业', action: 1 },
+    ])
 const ringColorList = ['#1983FF', '#F39E41', '#5DC06A', '#FB6E60']
 const toDoEvents = ref([
   { name: '待批改作业', value: 5, total: 20 },
